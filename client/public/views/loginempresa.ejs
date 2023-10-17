@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-md navbar-dark  bg-warning mb-4">
       <div class="container-fluid" style="display: flex; flex-direction: column;">
         <img src="img/taxi.jpg" style="width: 50px; opacity: .5;" alt="">
-        <a class="navbar-brand" href="index.html">tuRemo</a>
+        <a class="navbar-brand" href="/">tuRemo</a>
   
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,17 +34,17 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="btn btn-outline-light m-2" aria-current="page" href="empresa.html">Empresa</a>
+              <a class="btn btn-outline-light m-2" aria-current="page" href="/empresa">Empresa</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-outline-light m-2" href="soporte.html">Soporte</a>
+              <a class="btn btn-outline-light m-2" href="/support">Soporte</a>
             </li>
           </ul>
   
           <form class="d-flex" role="search">
-            <a class="btn btn-outline-light m-2" aria-current="page" href="registro.html">Registrarse</a>
+            <a class="btn btn-outline-light m-2" aria-current="page" href="/registro">Registrarse</a>
             <br>
-            <a class="btn btn-outline-light m-2" aria-current="page" href="login.html">Ingresar</a>
+            <a class="btn btn-outline-light m-2" aria-current="page" href="/login">Ingresar</a>
 
   
           </form>
@@ -52,24 +52,36 @@
         </div>
       </div>
     </nav>
-    <main>
+      <main>
         <div>
           <img class="img-fluid" src="img/image.png" alt="Imagen de taxi" height="300" width="300">
           <div class="letras">
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <h1>Elige cómo quieres iniciar sesión</h1>
-              <a href="loginusuario.html"><button class=" d-grid gap-2 col-6 mx-auto button "type="button">Usuario</button></a>
-              <a href="loginempresa.html"><button class=" d-grid gap-2 col-6 mx-auto button" type="button">Empresa</button></a>
-            </div>
-          </div>
+            <form id="formulario">
+              <h1 class="h3 mb-3 fw-normal">Inicio de Sesión</h1>
+              <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">CUIT de la Empresa</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Contraseña</label>
+              </div>
+          
+              <div class="form-check text-start my-3">
+                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Recordarme
+                </label>
+              </div>
+              <button type="submit" class="btn btn-secondary">Iniciar Sesión</button>
+            </form>
+        </div>
         </div>
       </main>
+      <footer class="text-black">Copyright© Derechos Reservados Team Interior 2023, tuRemo</footer>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-    <footer style="padding: 10px;" class="fixed-bottom text-black">
-        <div class="text-black" style="padding: 10px; border-top: 1px solid #000;">
-          © Copyright - Derechos Reservados - Team Interior 2023 - tuRemo
-        </div>
-      </footer>
+
     
     </div>  
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
