@@ -4,7 +4,7 @@ import { DataTypes } from 'sequelize';
 
 
 // Database modeling for the User entity
-export const UserModel = sequelize.define('User', {
+export const PassengerModel = sequelize.define('Passenger', {
         // Model attributes are defined here
         id: {
           type: DataTypes.INTEGER,
@@ -43,6 +43,10 @@ export const UserModel = sequelize.define('User', {
             type: DataTypes.BOOLEAN,
             defaultValue: true
         },
+        userType: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -62,5 +66,5 @@ export const UserModel = sequelize.define('User', {
         createdAt: true,
         updatedAt: true,
         deletedAt: true,
-        tableName: 'User'
+        tableName: 'Passenger'
 });

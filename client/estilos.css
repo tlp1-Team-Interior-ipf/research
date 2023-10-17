@@ -1,0 +1,14 @@
+.m-2{
+    border-bottom: 1px solid #000000 !important;
+}
+
+#miInput {
+    border: none; /* Eliminar todos los bordes */
+    border-bottom: 2px solid #000; /* Establecer el borde inferior con un grosor de 2px y color negro (#000) */
+    outline: none; /* Eliminar el resaltado predeterminado al hacer clic en el input */
+    padding: 5px 0; /* Agregar un pequeño espacio entre el texto y el borde inferior */
+    background: transparent; /* Hacer el fondo del input transparente */
+    width: 100%; /* Ajustar el ancho al 100% del contenedor padre */
+    box-sizing: border-box; /* Incluir el grosor del borde en el ancho total del input */
+  }
+  

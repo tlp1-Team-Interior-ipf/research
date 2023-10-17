@@ -39,6 +39,10 @@ export const DriverModel = sequelize.define('Driver', {
             type: DataTypes.BOOLEAN,
             defaultValue: true
         },
+        userType: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
 },
 {
     timestamps: true
