@@ -24,13 +24,15 @@ indexRouter.get('/login', (req, res) => res.render('login'));
 
 indexRouter.get('/registro', (req, res) => res.render('registro'));
 
-indexRouter.get('/login/usuario', (req, res) => res.render('login/loginusuario'));
+indexRouter.get('/login/usuario', (req, res) => res.render('loginusuario'));
 
-indexRouter.get('/registro/usuario', (req, res) => res.render('registro/signinusuario'));
+indexRouter.get('/registro/usuario', (req, res) => res.render('signinusuario'));
 
-indexRouter.get('/registro/empresa', (req, res) => res.render('registro/signinempresa'));
+indexRouter.get('/registro/empresa', (req, res) => res.render('signinempresa'));
 
-indexRouter.get('/login/empresa', (req, res) => res.render('login/loginempresa'));
+indexRouter.get('/login/empresa', (req, res) => res.render('loginempresa'));
+
+indexRouter.get('/home/usuario', (req, res) => res.render('inicioUser'));
 
 
 indexRouter.get('/', (req, res) => {
