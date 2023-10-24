@@ -1,0 +1,19 @@
+.navbar-items {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.navbar-items>* {
+    min-width: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar-items {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(12, 180px 1fr);
+        place-items: center;
+    }
+}
