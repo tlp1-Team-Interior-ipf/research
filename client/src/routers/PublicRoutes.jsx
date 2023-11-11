@@ -11,5 +11,5 @@ export const PublicRoutes = ({ children }) => {
 
   return ( !state.isLogged )
           ? children
-          : <Navigate to={'/app/home'} />
+          : <Navigate to={'/home'} />
 }

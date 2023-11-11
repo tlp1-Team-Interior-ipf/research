@@ -27,37 +27,41 @@ export const Routers = () => {
                 />
                 <Route path="/inicioSesion" element={
                         <PublicRoutes>
-                        <Routes>
-                            <Route index element={<InicioSesion />} />
-                        </Routes>
-                    </PublicRoutes>
-                } />
+                            <Routes>
+                                <Route index element={<InicioSesion />} />
+                            </Routes>
+                        </PublicRoutes>
+                    }
+                />
                 <Route path="/signin" element={
                         <PublicRoutes>
-                        <Routes>
-                            <Route index element={<Signin />} />
-                        </Routes>
-                    </PublicRoutes>
-                } />
+                            <Routes>
+                                <Route index element={<Signin />} />
+                            </Routes>
+                        </PublicRoutes>
+                    }
+                />
                 <Route path="/empresa" element={
                         <PublicRoutes>
-                        <Routes>
-                            <Route index element={<Empresa />} />
-                        </Routes>
-                    </PublicRoutes>
-                } />
+                            <Routes>
+                                <Route index element={<Empresa />} />
+                            </Routes>
+                        </PublicRoutes>
+                    }
+                />
                 <Route path="/soporte" element={
                         <PublicRoutes>
-                        <Routes>
-                            <Route index element={<Soporte />} />
-                        </Routes>
-                    </PublicRoutes>
-                } />
-                   <Route
-                    path="/app/*"
+                            <Routes>
+                                <Route index element={<Soporte />} />
+                            </Routes>
+                        </PublicRoutes>
+                    }
+                />
+                <Route
+                    path="/home"
                     element={
                         <PrivateRoutes>
-                            <Route path="/home" element={<Home />} />
+                            <Route index element={<Home />} />
                         </PrivateRoutes>
                     }
                 />

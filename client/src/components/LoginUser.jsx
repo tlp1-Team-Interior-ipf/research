@@ -44,7 +44,7 @@ export const LoginUser = () => {
       localStorage.setItem("token", data.token);
 
       // Redirige a la página de 'menu' después de 2 segundos
-      return navigate("/app/home", { replace: true });
+      return navigate("/home", { replace: true });
 
     } catch (error) {
       console.error(error);
