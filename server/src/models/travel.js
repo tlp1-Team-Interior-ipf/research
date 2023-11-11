@@ -23,6 +23,6 @@ export const TravelModel = sequelize.define('Viaje', {
     createdAt: true,
     updatedAt: true,
     deletedAt: true,
-    tableName: 'Passenger'
+    tableName: 'Viaje'
 });
 
