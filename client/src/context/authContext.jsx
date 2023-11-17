@@ -1,5 +1,6 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer } from "react";
 import { authReducer } from "../reducers/authReducer";
+
 
 export const AuthContext = createContext(null);
 

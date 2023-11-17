@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const environments = {
-    PORT: process.env.PORT || '4000',
+    PORT: process.env.PORT || '3000',
   SECRET_KEY: process.env.SECRET_KEY || '3823647823nksdcndj',
   DB: {
     DB_NAME: process.env.DB_NAME || 'turemo',

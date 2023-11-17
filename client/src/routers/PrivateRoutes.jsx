@@ -9,9 +9,9 @@ export const PrivateRoutes = ({ children }) => {
 
     return (state.isLogged)
         ? (
-            children
+            <Navigate to={'/home'} />
         )
         : (
-                <Navigate to={'/'} />
-            )
+            children
+        )
 }

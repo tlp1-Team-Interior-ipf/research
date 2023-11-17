@@ -1,27 +1,24 @@
 import './form.css'
 import { useNavigate } from "react-router-dom";
-
-
-
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/authContext"; 
 
 
+
+
 export const LoginUser = () => {
 
-  const { state, dispatch } = useContext(AuthContext);
-
+  const { dispatch } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/passenger/login", {
+      const resp = await fetch ('http://localhost:3000/passenger/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,28 +26,39 @@ export const LoginUser = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        throw new Error("La contraseña o el email son incorrectos");
-      }
-
-      const data = await response.json();
-
-      if (!data) {
-        throw new Error("No hay datos");
-      }
+      if (!resp.ok) {
+        // Si la respuesta no es exitosa, manejar los errores
+        const errorData = await resp.json();
+        if (errorData && errorData.errors) {
+          // Si hay errores de validación, mostrar los mensajes de error
+          const errorMessages = errorData.errors.map((error) => error.msg);
+          Swal.fire({
+            icon: "error",
+            title: "Error de validación",
+            text: errorMessages.join("\n"),
+          });
+        } 
+      } else {
+        // Si la respuesta es exitosa, continuar con el flujo de inicio de sesión
+        const userData = await resp.json();
       
-      dispatch({ type: "LOGIN", payload: data });
-      
-      localStorage.setItem("token", data.token);
+        // Persistencia
+        localStorage.setItem('token', JSON.stringify(userData.token));
 
-      // Redirige a la página de 'menu' después de 2 segundos
-      return navigate("/home", { replace: true });
+        // Actualizar el contexto de autenticación
+        dispatch({ type: "LOGIN", payload: userData });
 
+        // Redirige a la página de 'menu' después de 2 segundos
+        setTimeout(() => {
+          return navigate("/home");
+        }, 2000);
+      }
     } catch (error) {
       console.error(error);
       Swal.fire("Error", error.message, "error");
     }
   };
+
 
   return (
     <main className="d-flex justify-content-center">

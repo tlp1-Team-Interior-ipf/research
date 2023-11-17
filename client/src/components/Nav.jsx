@@ -1,5 +1,6 @@
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
+import logo from "../../public/img/taxi.jpg";
 
 export const Nav = () => {
 
@@ -16,8 +17,8 @@ export const Nav = () => {
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark  bg-warning mb-4">
-        <div className="container-fluid" style="display: flex; flex-direction: column;">
-          <img src="/img/taxi.jpg" style="width: 50px; opacity: .5;" alt=""/>
+        <div className="container-fluid">
+          <img src={logo} />
           <a className="navbar-brand" href="/">tuRemo</a>
     
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

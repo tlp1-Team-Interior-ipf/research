@@ -4,6 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import { Server as SocketServer } from 'socket.io';
+import { createServer } from 'http';
 
 
 dotenv.config();
@@ -22,6 +24,8 @@ const { __dirname } = fileDirName(import.meta);
 
 
 const app = express();
+const httpServer = createServer(app);
+const io = new SocketServer(httpServer);
 
 //Middleware necessary
 app.use(cors());
@@ -51,7 +55,7 @@ app.use('/enterprise', enterpriseRouter)
  app.use(handleErrors);
 
 // Starting the server
-app.listen(environments.PORT, async () => {
+httpServer.listen(environments.PORT, async () => {
     console.log(`server on port http://localhost:${environments.PORT}`)
     connectToDatabase()
 });

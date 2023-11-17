@@ -10,8 +10,8 @@ import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
 
 
-
 export const Routers = () => {
+
     return (
         <BrowserRouter>
             <Routes>
@@ -25,7 +25,7 @@ export const Routers = () => {
                         </PublicRoutes>
                     }
                 />
-                <Route path="/inicioSesion" element={
+                <Route path="/inicioSesion/*" element={
                         <PublicRoutes>
                             <Routes>
                                 <Route index element={<InicioSesion />} />
@@ -61,7 +61,9 @@ export const Routers = () => {
                     path="/home"
                     element={
                         <PrivateRoutes>
+                            <Routes>
                             <Route index element={<Home />} />
+                            </Routes>
                         </PrivateRoutes>
                     }
                 />
