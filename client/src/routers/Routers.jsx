@@ -8,6 +8,7 @@ import { Home } from '../pages/home';
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
+import { PedidoViaje } from "../pages/pedido";
 
 
 export const Routers = () => {
@@ -67,6 +68,18 @@ export const Routers = () => {
                         </PrivateRoutes>
                     }
                 />
+
+                <Route
+                    path="/pedidoViaje"
+                    element={
+                        <PrivateRoutes>
+                            <Routes>
+                            <Route index element={<PedidoViaje />} />
+                            </Routes>
+                        </PrivateRoutes>
+                    }
+                />
+
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>
