@@ -8,6 +8,7 @@ import { Home } from '../pages/home';
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
+import PasajeroView from '../components/PasajeroView'; // Importa el componente de la vista del pasajero
 
 
 export const Routers = () => {
@@ -63,6 +64,16 @@ export const Routers = () => {
                         <PrivateRoutes>
                             <Routes>
                             <Route index element={<Home />} />
+                            </Routes>
+                        </PrivateRoutes>
+                    }
+                />
+                <Route
+                    path="/pasajero/*"
+                    element={
+                        <PrivateRoutes>
+                            <Routes>
+                            <Route index element={<PasajeroView />} />
                             </Routes>
                         </PrivateRoutes>
                     }
