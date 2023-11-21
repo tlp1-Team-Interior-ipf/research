@@ -1,5 +1,5 @@
-import { Footer } from "./footer"
-import { NavBar } from "./navbar"
+import { Footer } from "../components/footer"
+import { NavBar } from "../components/navbar"
 import RemisesLibertad from '../assets/RemisesLibertad.svg'
 import RemisesFontana from '../assets/RemisesFontana.svg'
 import RemisesLitur from '../assets/RemisesLitur.svg'

@@ -1,6 +1,6 @@
 import taxi from '../assets/taxi.svg'
-import { NavBar } from './navbar'
-import { Footer } from './footer'
+import { NavBar } from '../components/navbar'
+import { Footer } from '../components/footer'
 
 
 export const Signinuser = () => {
@@ -11,7 +11,7 @@ export const Signinuser = () => {
 
             <main>
                 <div>
-                    <picture className="d-flex" style={{ justifyContent: 'center' }}>
+                    <picture className="d-flex justify-content-center">
                         <img style={{ width: '100px' }} src={taxi} alt="Imagen de taxi" />
                     </picture>
                     <div>
@@ -60,7 +60,7 @@ export const Signinuser = () => {
                                 </label>
                             </div>
 
-                            <div className='d-flex' style={{ justifyContent: 'center' }}>
+                            <div className='d-flex justify-content-center'>
                                 <button type="submit" className="btn btn-warning text-light m-1">Registrarme</button>
                             </div>
                         </form>

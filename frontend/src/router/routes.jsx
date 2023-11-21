@@ -1,17 +1,17 @@
 import { Index } from '../Index.jsx'
-import { Empresa } from '../components/Empresa.jsx'
-import { Support } from '../components/support.jsx'
-import { SupportChofer } from '../components/support.chofer.jsx'
-import { InicioUser } from '../components/inicioUser.jsx'
-import { InicioChofer } from '../components/inicioChofer.jsx'
+import { Empresa } from '../pages/Empresa.jsx'
+import { Support } from '../pages/support.jsx'
+import { SupportChofer } from '../pages/support.chofer.jsx'
+import { InicioUser } from '../pages/inicioUser.jsx'
+import { InicioChofer } from '../pages/inicioChofer.jsx'
 import { Login } from '../components/login.jsx'
 import { Register } from '../components/register.jsx'
-import { SigninEmpresaa } from '../components/sign.in.empresa.jsx'
-import { Signinuser } from '../components/sign.in.user.jsx'
-import { LoginUser } from '../components/login.user.jsx'
-import { LoginEmpresa } from '../components/login.empresa.jsx'
+import { SigninEmpresaa } from '../pages/sign.in.empresa.jsx'
+import { Signinuser } from '../pages/sign.in.user.jsx'
+import { LoginUser } from '../pages/login.user.jsx'
+import { LoginEmpresa } from '../pages/login.empresa.jsx'
 import { createBrowserRouter} from "react-router-dom"
-import App from '../components/App.jsx'
+import ChoferAndUser from '../pages/ChoferAndUser.jsx'
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/choferuser",
-        element: <App />,
+        element: <ChoferAndUser />,
     },
     {
         path: "/empresa",

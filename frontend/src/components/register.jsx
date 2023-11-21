@@ -11,7 +11,7 @@ export const Register = () => {
 
             <main>
                 <div>
-                    <picture className='d-flex' style={{ justifyContent: 'center' }}>
+                    <picture className='d-flex justify-content-center'>
                         <img className="" src={taxi} alt="Imagen de taxi" style={{ width: '100px' }} />
                     </picture>
 

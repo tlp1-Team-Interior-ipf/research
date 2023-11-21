@@ -1,35 +1,12 @@
+import { NavBar } from '../components/navbar.jsx'
 import { Footer } from '../components/footer.jsx'
 
 
-export const SupportChofer = () => {
+export const Support = () => {
 
     return (
         <>
-            <div>
-                <nav className="navbar navbar-expand-md navbar-dark  bg-warning ">
-                    <div className="container-fluid">
-                        <a className="navbar-brand" href={"/iniciochofer"}>tuRemo</a>
-
-                        
-
-                        <div className="collapse navbar-collapse" id="navbarCollapse">
-                            <ul className="navbar-nav me-auto mb-2 mb-md-0">
-
-                                <li className="nav-item">
-                                    <a className="nav-link active" href="/supportchofer">Soporte</a>
-                                </li>
-                            </ul>
-
-                            <form className="d-flex" role="search">
-                                <a href="/register" className="btn btn-warning text-light btn-outline-light m-2">Registrarse</a>
-
-                                <a href="/login" className="btn btn-warning text-light btn-outline-light m-2">Ingresar</a>
-                            </form>
-
-                        </div>
-                    </div>
-                </nav>
-            </div>
+            <NavBar />
 
             <main>
                 <div>
@@ -58,7 +35,7 @@ export const SupportChofer = () => {
                                 <label htmlFor="floatingTextarea">Aquí su mensaje...</label>
                             </div>
 
-                            <div className='d-flex' style={{ justifyContent: 'center' }}>
+                            <div className='d-flex justify-content-center'>
                                 <button type="button" className="btn btn-warning m-1 text-light">Enviar consulta</button>
                             </div>
 

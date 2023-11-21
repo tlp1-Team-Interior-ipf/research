@@ -1,6 +1,6 @@
 import taxi from '../assets/taxi.svg'
-import { NavBar } from './navbar'
-import { Footer } from './footer'
+import { NavBar } from '../components/navbar'
+import { Footer } from '../components/footer'
 
 
 export const SigninEmpresaa = () => {
@@ -12,7 +12,7 @@ export const SigninEmpresaa = () => {
 
             <main>
                 <div>
-                    <picture className="d-flex" style={{ justifyContent: 'center' }}>
+                    <picture className="d-flex justify-content-center">
                         <img src={taxi} alt="Imagen de taxi" style={{ width: '100px' }} />
                     </picture>
 
@@ -58,7 +58,7 @@ export const SigninEmpresaa = () => {
                                 </label>
                             </div>
 
-                            <div className='d-flex' style={{ justifyContent: 'center' }}>
+                            <div className='d-flex justify-content-center'>
                                 <button type="submit" className="btn btn-warning text-light m-1">Registrarme</button>
                             </div>
 

@@ -1,9 +1,9 @@
 import taxi from '../assets/taxi.svg'
-import { NavBar } from './navbar'
-import { Footer } from './footer'
+import { NavBar } from '../components/navbar'
+import { Footer } from '../components/footer'
 
 
-export const LoginEmpresa = () => {
+export const LoginUser = () => {
 
     return (
 
@@ -12,15 +12,14 @@ export const LoginEmpresa = () => {
 
             <main>
                 <div>
-
-                    <picture className="d-flex" style={{ justifyContent: 'center' }}>
+                    <picture className="d-flex justify-content-center">
                         <img className="img-fluid" src={taxi} alt="Imagen de taxi" style={{ width: '100px' }} />
                     </picture>
 
-                    <div>
-                        <form id="formulario" style={{}}>
+                    <div className="letras">
+                        <form id="formulario">
 
-                            <h1 className="h3 mb-3 fw-normal text-center text-warning m-1">Inicio de sesión de empresa</h1>
+                            <h1 className="h3 mb-3 fw-normal text-warning m-1 text-center">Inicio de sesión de usuario</h1>
 
                             <div className="form-floating">
                                 <input type="email" className="form-control m-1" id="email" name="email" placeholder="name@example.com" />
@@ -39,10 +38,9 @@ export const LoginEmpresa = () => {
                                 </label>
                             </div>
 
-                            <div className='d-flex' style={{ justifyContent: 'center' }}>
-                                <button type="submit" className="btn btn-warning text-light">Iniciar Sesión</button>
+                            <div className='d-flex justify-content-center'>
+                                <button type="submit" className="btn btn-warning text-light m-1">Iniciar Sesión</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

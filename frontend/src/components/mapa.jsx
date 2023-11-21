@@ -1,24 +1,20 @@
-import mapaSVG from '../assets/formosa.svg'
-import { NavBar } from './navbar'
+import { NavBar } from "./navbar";
+import Maping from "./maping";
 export const Mapa = () => {
+  return (
+    <>
+      <NavBar />
 
-    return (
+      <span className="input-group-text">Origen</span>
+      <span className="input-group-text">Destino</span>
 
+      <div className="container d-flex justify-content-center">
+        <Maping />
+      </div>
 
-        <>
-
-            <NavBar />
-
-            <div style={{height:'350px'}}>
-                <span className="input-group-text">Origen</span>
-                <span className="input-group-text">Destino</span>
-                
-                    <picture style={{ display: 'flex', justifyContent: 'center', justifyItems: 'center', position: 'relative', top: '-70px' }}>
-                        <img src={mapaSVG} alt="" />
-                    </picture>
-                
-            </div>
-
-        </>
-    )
-}
+      <div className="d-flex justify-content-center">
+        <button className="btn btn-danger m-1">Finalizar viaje</button>
+      </div>
+    </>
+  );
+};
