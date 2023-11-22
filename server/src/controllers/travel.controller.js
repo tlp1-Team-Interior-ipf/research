@@ -3,10 +3,11 @@ import {TravelModel} from '../models/travel.js';
 const travelController = {};
 
 travelController.saveTravel = async (req, res) => {
-  const { origen_lat, origen_lng, destino_lat, destino_lng } = req.body;
+  const { id_enterprise, origen_lat, origen_lng, destino_lat, destino_lng } = req.body;
 
   try {
-    const newTravel = await Travel.create({
+    const newTravel = await TravelModel.create({
+      id_enterprise,
       origen_lat,
       origen_lng,
       destino_lat,  // Agregar destino_lat a la creación del viaje
@@ -25,7 +26,7 @@ travelController.saveTravel = async (req, res) => {
 travelController.getTravel = async (req, res) => {
   const travelId = req.params.id;
   try {
-    const travel = await Travel.findOne({ where: { id: travelId } });
+    const travel = await TravelModel.findOne({ where: { id: travelId } });
 
     if (!travel) {
       return res.status(404).json({ error: 'No se encontró el viaje con el ID proporcionado' });
@@ -43,7 +44,7 @@ export const getTravelDetails = async (req, res) => {
   const { travelId } = req.params;
 
   try {
-    const travel = await Travel.findByPk(travelId);
+    const travel = await TravelModel.findByPk(travelId);
 
     if (!travel) {
       return res.status(404).json({ message: 'Viaje no encontrado' });
@@ -59,7 +60,7 @@ export const getTravelDetails = async (req, res) => {
 travelController.showTravelList = async (req, res) => {
   try {
     console.log('Executing showTravelList')
-    const travels = await Travel.findAll();
+    const travels = await TravelModel.findAll();
 
     res.render('travelList', { travels });
   } catch (error) {
@@ -72,7 +73,7 @@ travelController.updateTravelStatus = async (req, res) => {
   const { travelId } = req.params;
 
   try {
-    const travel = await Travel.findByPk(travelId);
+    const travel = await TravelModel.findByPk(travelId);
 
     if (!travel) {
       return res.status(404).json({ message: 'Viaje no encontrado' });
