@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-
+import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const PasajeroView = () => {
   const [showModal, setShowModal] = useState(false);
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
+  const [directions, setDirections] = useState(null);
+  const [distance, setDistance] = useState(null);
   const [title, setTitle] = useState('Seleccione el origen');
 
   const handleOpenModal = () => {
@@ -43,6 +44,50 @@ const PasajeroView = () => {
       setTitle('Ubicación confirmada');
     }
   };
+  const calculateDirections = () => {
+    if (origin && destination) {
+      const directionsService = new window.google.maps.DirectionsService();
+      directionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: 'DRIVING',
+        },
+        (result, status) => {
+          if (status === 'OK') {
+            setDirections(result);
+            calculateDistance(); // Calcula la distancia al obtener las direcciones
+          } else {
+            console.error('Error al trazar la ruta:', status);
+          }
+        }
+      );
+    }
+  };
+
+  const calculateDistance = () => {
+    const distanceMatrixService = new window.google.maps.DistanceMatrixService();
+    distanceMatrixService.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+      },
+      (response, status) => {
+        if (status === 'OK') {
+          const distanceValue = response.rows[0].elements[0].distance.value;
+          const distanceInKm = distanceValue / 1000; // Conversión a kilómetros
+          setDistance(distanceInKm.toFixed(2)); // Establece la distancia en el estado
+        } else {
+          console.error('Error al calcular la distancia:', status);
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    calculateDirections();
+  }, [origin, destination]);
 
   const mapContainerStyle = {
     width: '100%',
@@ -75,8 +120,13 @@ const PasajeroView = () => {
             >
               {origin && <Marker position={origin} />}
               {destination && <Marker position={destination} />}
+              {directions && <DirectionsRenderer directions={directions} />}
             </GoogleMap>
           </LoadScript>
+          {/* Visualización de la distancia */}
+        <Modal.Footer>
+          <p>Distancia entre puntos: {distance ? `${distance} km` : 'Calculando...'}</p>
+        </Modal.Footer>
           <Button variant="info" onClick={handleFindMyLocation}>Encontrar mi ubicación</Button>
         </Modal.Body>
       </Modal>
