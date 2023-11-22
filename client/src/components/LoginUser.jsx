@@ -39,7 +39,9 @@ export const LoginUser = () => {
         localStorage.setItem('token', JSON.stringify(userData.token));
 
         // Actualizar el contexto de autenticación
-        dispatch({ types: "LOGIN", payload: userData });
+        // dispatch({ types: "LOGIN", payload: userData });
+
+        dispatch({ type: types.LOGIN, payload: userData });
 
         // Redirige a la página de 'menu' después de 2 segundos
         setTimeout(() => {
