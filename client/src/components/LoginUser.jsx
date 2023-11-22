@@ -2,7 +2,7 @@ import './form.css'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../context/authContext";
+import { AuthContext } from "../context/AuthContext";
 import { types } from '../types/type'
 
 
@@ -27,7 +27,7 @@ export const LoginUser = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const responseData = await resp.json();
+      // const responseData = await resp.json();
 
       if (!resp.ok) {
           Swal.fire('Error', responseData.message || 'Unknown error', 'error');

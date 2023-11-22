@@ -10,6 +10,7 @@ export const AuthUser = ({ children }) => {
   return (
     <AuthContext.Provider value={{ dispatch, state }}>
       {children}
+      //Hay que agregar un if para verificar si existe el token o no
     </AuthContext.Provider>
   );
 };

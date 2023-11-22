@@ -1,4 +1,4 @@
-import { AuthUser } from './context/authContext';
+import { AuthUser } from './context/AuthContext';
 import { Routers } from './routers/Routers';
 
 function App() {
