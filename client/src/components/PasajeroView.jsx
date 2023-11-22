@@ -8,7 +8,7 @@ const PasajeroView = () => {
   const [destination, setDestination] = useState(null);
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState(null);
-  const [title, setTitle] = useState('Seleccione el origen');
+  const [title, setTitle] = useState(null);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -108,7 +108,8 @@ const PasajeroView = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
+          <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
+          <Button variant="info" onClick={handleFindMyLocation} style={{ position: 'absolute', top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
         </Modal.Header>
         <Modal.Body>
           <LoadScript googleMapsApiKey={googleMapsApiKey}>
@@ -126,8 +127,10 @@ const PasajeroView = () => {
           {/* Visualización de la distancia */}
         <Modal.Footer>
           <p>Distancia entre puntos: {distance ? `${distance} km` : 'Calculando...'}</p>
+          {/* {origin && destination && ( //Aquí iría el botón de pedir remis y la lógica para enviar la petición
+            <Button variant="primary" onClick={handleRequestRide}>Pedir remis</Button>
+          )} */}
         </Modal.Footer>
-          <Button variant="info" onClick={handleFindMyLocation}>Encontrar mi ubicación</Button>
         </Modal.Body>
       </Modal>
     </div>
