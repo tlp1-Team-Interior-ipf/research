@@ -2,7 +2,7 @@ import './form.css'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/authContext";
 import { types } from '../types/type'
 
 

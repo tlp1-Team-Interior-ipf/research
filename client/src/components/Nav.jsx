@@ -1,6 +1,7 @@
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 import logo from "../../public/img/taxi.jpg";
+import { types } from "../types/type";
 
 export const Nav = () => {
 
@@ -9,7 +10,7 @@ export const Nav = () => {
     const handleLogout = () => {
       localStorage.removeItem('token');
 
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: types.LOGOUT });
 
       window.location.href = "/";
     }
