@@ -15,6 +15,7 @@ import { connectToDatabase } from "./src/config/db.js";
 import { passengerRouter } from "./src/routes/passenger.routes.js";
 import { driverRouter } from "./src/routes/driver.routes.js";
 import { enterpriseRouter } from "./src/routes/enterprise.routes.js";
+import { travelRouter } from "./src/routes/travel.routes.js";
 import { handleErrors } from "./src/middlewares/handleError.js";
 import { createLogs } from "./src/helpers/createLogs.js";
 import './src/models/driver_enterprise.js';
@@ -50,6 +51,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/passenger', passengerRouter)
 app.use('/driver', driverRouter)
 app.use('/enterprise', enterpriseRouter)
+app.use('/travel', travelRouter)
 
  // Error handling
  app.use(handleErrors);

@@ -89,6 +89,15 @@ const PasajeroView = () => {
     calculateDirections();
   }, [origin, destination]);
 
+  const handleConfirmLocation = () => {
+    const coordenadas = {
+      origen: origin ? { lat: origin.lat, lng: origin.lng } : null,
+      destino: destination ? { lat: destination.lat, lng: destination.lng } : null,
+    };
+    
+    console.log('Coordenadas:', coordenadas);
+  };
+
   const mapContainerStyle = {
     width: '100%',
     height: '400px',
@@ -127,9 +136,9 @@ const PasajeroView = () => {
           {/* Visualización de la distancia */}
         <Modal.Footer>
           <p>Distancia entre puntos: {distance ? `${distance} km` : 'Calculando...'}</p>
-          {/* {origin && destination && ( //Aquí iría el botón de pedir remis y la lógica para enviar la petición
-            <Button variant="primary" onClick={handleRequestRide}>Pedir remis</Button>
-          )} */}
+          {origin && destination && ( //Aquí iría el botón de pedir remis y la lógica para enviar la petición
+           <Button variant="success" onClick={handleConfirmLocation}>Confirmar ubicación</Button>
+          )}
         </Modal.Footer>
         </Modal.Body>
       </Modal>
