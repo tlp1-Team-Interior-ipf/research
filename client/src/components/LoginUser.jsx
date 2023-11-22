@@ -27,14 +27,10 @@ export const LoginUser = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const responseData = await resp.json();
+
       if (!resp.ok) {
-        // desde el backend se envía un mensaje de error y ese se muestra en el front en un sweetalert
-        const errorMessage = await resp.json();
-        if (errorMessage.message) {
-          Swal.fire("Error", errorMessage.message, "error");
-        } else {
-          Swal.fire("Error", "Algo salió mal", "error");
-        } 
+          Swal.fire('Error', responseData.message || 'Unknown error', 'error');
       } else {
         // Si la respuesta es exitosa, continuar con el flujo de inicio de sesión
         const userData = await resp.json();
@@ -52,7 +48,7 @@ export const LoginUser = () => {
       }
     } catch (error) {
       console.error(error);
-      Swal.fire("Error", error.message, "error");
+      Swal.fire('Error', 'Failed to communicate with the server', 'error');
     }
   };
 

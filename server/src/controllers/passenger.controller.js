@@ -94,7 +94,7 @@ export const ctrlLoginPassenger = async (req, res) => {
       const passenger = await getPassengerByEmailAndPassword(req.body)
   
       if (!passenger) {
-         res.status(404).json({ error: 'Passenger not found' });
+         res.status(404).json({ message: 'Passenger not found' });
       };
 
       const token = await createJWT({ user: passenger.id })
@@ -102,6 +102,6 @@ export const ctrlLoginPassenger = async (req, res) => {
       res.status(200).json(token)
     } catch (error) {
       console.error(error)
-      res.status(500).json(error.message)
+      res.status(500).json({ message: 'Internal server error' })
     }
 };
