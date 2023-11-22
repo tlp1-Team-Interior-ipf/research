@@ -1,14 +1,12 @@
-import io from 'socket.io-client'   // Modulo de socket.io enfocado en aplicaciones de navegador
-import { useState, useEffect } from 'react'   // Para crear estados
-import { Mapa } from '../components/mapa';
-import { Footer } from '../components/footer.jsx';
+import io from "socket.io-client"; // Modulo de socket.io enfocado en aplicaciones de navegador
+import { useState, useEffect } from "react"; // Para crear estados
+import { Mapa } from "../components/mapa";
+import { Footer } from "../components/footer.jsx";
 
 // Conexión con el backend
-const socket = io("/")    // Este socket permite recibir información del backend
+const socket = io("/"); // Este socket permite recibir información del backend
 
-
-
- function ChoferAndUser() {
+function ChoferAndUser() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -20,7 +18,7 @@ const socket = io("/")    // Este socket permite recibir información del backen
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(message.trim() === ''){
+    if (message.trim() === "") {
       return;
     }
 
@@ -46,7 +44,6 @@ const socket = io("/")    // Este socket permite recibir información del backen
   const receiveMessage = (message) =>
     setMessages((state) => [...state, message]);
 
-
   return (
     <>
       <Mapa />
@@ -71,12 +68,26 @@ const socket = io("/")    // Este socket permite recibir información del backen
                   message.from === "Me"
                     ? " ms-auto bg-warning-subtle text-emphasis-warning me-0"
                     : " me-auto bg-success-subtle ms-0"
-                } border-bottom`} style={{maxWidth:'70%', width:'fit-content', marginLeft:'auto'}}
+                } border-bottom`}
+                style={{
+                  maxWidth: "70%",
+                  width: "fit-content",
+                  marginLeft: "auto",
+                }}
               >
-                <span className={`text-md text-slate-700 block ${message.from === "Me" ? "text-dark" : "text-dark"}`}>
-                  {message.from === "Me" ? <b>{message.from}</b> : <b>{message.from}</b>}
+                <span
+                  className={`text-md text-slate-700 block ${
+                    message.from === "Me" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  {message.from === "Me" ? (
+                    <b>{message.from}</b>
+                  ) : (
+                    <b>{message.from}</b>
+                  )}
                 </span>
-                <span className="text-xl" style={{wordWrap:'break-word'}}>
+
+                <span className="text-xl" style={{ wordWrap: "break-word" }}>
                   {message.body}{" "}
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     {time}
@@ -85,12 +96,13 @@ const socket = io("/")    // Este socket permite recibir información del backen
               </li>
             ))}
           </ul>
+
           <form
             onSubmit={handleSubmit}
             className="container mx-1 col-md-5 order-md-last text-warning d-flex flex-column "
           >
             <input
-              className="form-control border border-warning d-block position"
+              className="form-control border border-warning "
               type="text"
               placeholder="Write your message ..."
               onChange={(e) => setMessage(e.target.value)}
@@ -109,6 +121,4 @@ const socket = io("/")    // Este socket permite recibir información del backen
   );
 }
 
-
-
-export default ChoferAndUser
+export default ChoferAndUser;
