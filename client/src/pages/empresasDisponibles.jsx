@@ -1,13 +1,13 @@
-import { Navbar } from '../components/Navbar'
-import { Empresas } from '../components/Empresas'
+import { Nav } from '../components/Nav'
+import { EmpresasDisp } from '../components/EmpresasDisponibles'
 import { Footer } from '../components/Footer'
 
 
-export const Empresa = () => {
+export const EmpresasDisponibles = () => {
     return (
         <>
-            <Navbar />
-            <Empresas />
+            <Nav />
+            <EmpresasDisp />
             <Footer />
         </>
     )

@@ -9,6 +9,7 @@ import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
 import { PedidoViaje } from "../pages/pedido";
+import { EmpresasDisponibles } from "../pages/empresasDisponibles";
 
 
 export const Routers = () => {
@@ -50,6 +51,16 @@ export const Routers = () => {
                         </PublicRoutes>
                     }
                 />
+
+                    { <Route path="/empresasDisponibles" element={
+                        <PrivateRoutes>
+                            <Routes>
+                                <Route index element={<EmpresasDisponibles />} />
+                            </Routes>
+                        </PrivateRoutes>
+                    }
+                /> }
+
                 <Route path="/soporte" element={
                         <PublicRoutes>
                             <Routes>
