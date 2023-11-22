@@ -1,10 +1,10 @@
 import { env } from "../config/config";
 
-export const fetchWithOutAuth = async (route, method = 'GET', payload) => {
+export const fetchWithOutAuth = async (route, method = 'POST', payload) => {
     
     const url = `${env.SERVER_PATH}/${route}`;
 
-if(method === 'GET'){
+if(method === 'POST'){
     const response = await fetch(url);
     const data = await response.json();
     return data;

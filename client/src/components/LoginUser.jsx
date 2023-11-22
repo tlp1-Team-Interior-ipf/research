@@ -2,7 +2,8 @@ import './form.css'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../context/authContext"; 
+import { AuthContext } from "../context/authContext";
+import { types } from '../types/type'
 
 
 
@@ -27,16 +28,12 @@ export const LoginUser = () => {
       });
 
       if (!resp.ok) {
-        // Si la respuesta no es exitosa, manejar los errores
-        const errorData = await resp.json();
-        if (errorData && errorData.errors) {
-          // Si hay errores de validación, mostrar los mensajes de error
-          const errorMessages = errorData.errors.map((error) => error.msg);
-          Swal.fire({
-            icon: "error",
-            title: "Error de validación",
-            text: errorMessages.join("\n"),
-          });
+        // desde el backend se envía un mensaje de error y ese se muestra en el front en un sweetalert
+        const errorMessage = await resp.json();
+        if (errorMessage.message) {
+          Swal.fire("Error", errorMessage.message, "error");
+        } else {
+          Swal.fire("Error", "Algo salió mal", "error");
         } 
       } else {
         // Si la respuesta es exitosa, continuar con el flujo de inicio de sesión
@@ -46,7 +43,7 @@ export const LoginUser = () => {
         localStorage.setItem('token', JSON.stringify(userData.token));
 
         // Actualizar el contexto de autenticación
-        dispatch({ type: "LOGIN", payload: userData });
+        dispatch({ types: "LOGIN", payload: userData });
 
         // Redirige a la página de 'menu' después de 2 segundos
         setTimeout(() => {
