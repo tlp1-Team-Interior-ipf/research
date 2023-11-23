@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-
+import { EmpresasDisp } from './EmpresasDisponibles';
 const PasajeroView = () => {
   const [showModal, setShowModal] = useState(false);
   const [origin, setOrigin] = useState(null);
@@ -9,6 +9,11 @@ const PasajeroView = () => {
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState(null);
   const [title, setTitle] = useState(null);
+
+  const [montoRealLibertad, setMontoRealLibertad] = useState(null);
+  const [montoRealMontecarlo, setMontoRealMontecarlo] = useState(null);
+  const [montoRealNapoleon, setMontoRealNapoleon] = useState(null);
+  const [showEmpresas, setShowEmpresas] = useState(false);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -56,7 +61,7 @@ const PasajeroView = () => {
         (result, status) => {
           if (status === 'OK') {
             setDirections(result);
-            calculateDistance(); // Calcula la distancia al obtener las direcciones
+            calculateDistance();
           } else {
             console.error('Error al trazar la ruta:', status);
           }
@@ -77,7 +82,12 @@ const PasajeroView = () => {
         if (status === 'OK') {
           const distanceValue = response.rows[0].elements[0].distance.value;
           const distanceInKm = distanceValue / 1000; // Conversión a kilómetros
-          setDistance(distanceInKm.toFixed(2)); // Establece la distancia en el estado
+          setDistance(distanceInKm.toFixed(2));
+          setMontoRealLibertad(distance ? distance * 340 + 400 : null);
+          setMontoRealMontecarlo(distance ? distance * 400 + 400 : null);
+          setMontoRealNapoleon(distance? distance * 500 + 400 : null);
+          setShowModal(false); // Cierra el modal después de confirmar la ubicación
+          setShowEmpresas(true); // Muestra las empresas disponibles
         } else {
           console.error('Error al calcular la distancia:', status);
         }
@@ -93,9 +103,14 @@ const PasajeroView = () => {
     const coordenadas = {
       origen: origin ? { lat: origin.lat, lng: origin.lng } : null,
       destino: destination ? { lat: destination.lat, lng: destination.lng } : null,
+      
     };
     
     console.log('Coordenadas:', coordenadas);
+      if (origin && destination) {
+        setShowModal(false); // Cerrar el modal solo después de confirmar la ubicación
+        setShowEmpresas(true); // Mostrar las empresas disponibles
+      }
   };
 
   const mapContainerStyle = {
@@ -142,6 +157,12 @@ const PasajeroView = () => {
         </Modal.Footer>
         </Modal.Body>
       </Modal>
+      {/* Renderiza la lista de empresas disponibles si se confirma la ubicación */}
+      {showEmpresas && <EmpresasDisp  
+       montoRealLibertad={montoRealLibertad}
+       montoRealMontecarlo={montoRealMontecarlo}
+       montoRealNapoleon={montoRealNapoleon}
+       />}
     </div>
   );
 };
