@@ -8,8 +8,12 @@ import { Home } from '../pages/home';
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
+<<<<<<< HEAD
 import { PedidoViaje } from "../pages/pedido";
 import { EmpresasDisponibles } from "../pages/empresasDisponibles";
+=======
+import {PasajeroPage} from '../pages/pasajero'; // Importa el componente de la vista del pasajero
+>>>>>>> mauri
 
 
 export const Routers = () => {
@@ -79,6 +83,7 @@ export const Routers = () => {
                         </PrivateRoutes>
                     }
                 />
+<<<<<<< HEAD
 
                 <Route
                     path="/pedidoViaje"
@@ -86,11 +91,22 @@ export const Routers = () => {
                         <PrivateRoutes>
                             <Routes>
                             <Route index element={<PedidoViaje />} />
+=======
+                <Route
+                    path="/pasajero/*"
+                    element={
+                        <PrivateRoutes>
+                            <Routes>
+                            <Route index element={<PasajeroPage />} />
+>>>>>>> mauri
                             </Routes>
                         </PrivateRoutes>
                     }
                 />
+<<<<<<< HEAD
 
+=======
+>>>>>>> mauri
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>

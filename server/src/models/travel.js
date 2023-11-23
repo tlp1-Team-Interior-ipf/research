@@ -1,21 +1,25 @@
-import Sequelize from 'sequelize';
-import {sequelize} from '../config/db.js';
+import { sequelize } from '../config/db.js';
+import { Sequelize } from 'sequelize';
 
-export const TravelModel = sequelize.define('Viaje', {
-  origen: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  destino: {
-    type: Sequelize.STRING,
+export const TravelModel = sequelize.define('Travel', {
+  id_enterprise:{
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   origen_lat: {
-    type: Sequelize.DECIMAL(9, 6),
+    type: Sequelize.DECIMAL (12,10),
     allowNull: false
   },
   origen_lng: {
-    type: Sequelize.DECIMAL(9, 6),
+    type: Sequelize.DECIMAL (12,10),
+    allowNull: false
+  },
+  destino_lat: {
+    type: Sequelize.DECIMAL (12,10),
+    allowNull: false
+  },
+  destino_lng: {
+    type: Sequelize.DECIMAL (12,10),
     allowNull: false
   }},
   {
@@ -23,6 +27,6 @@ export const TravelModel = sequelize.define('Viaje', {
     createdAt: true,
     updatedAt: true,
     deletedAt: true,
-    tableName: 'Viaje'
+    tableName: 'Travel'
 });
 

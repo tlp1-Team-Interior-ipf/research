@@ -18,7 +18,11 @@ export const Nav = () => {
     return (
         <nav className="navbar navbar-expand-md navbar-dark  bg-warning mb-4">
         <div className="container-fluid">
+<<<<<<< HEAD
           <img style={{ width: '50px', opacity: 0.5 }} src={logo} />
+=======
+          {/* <img src={logo} /> */}
+>>>>>>> mauri
           <a className="navbar-brand" href="/">tuRemo</a>
     
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
