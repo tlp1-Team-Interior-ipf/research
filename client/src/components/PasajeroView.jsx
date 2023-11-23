@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { EmpresasDisp } from './EmpresasDisponibles';
 const PasajeroView = () => {
+  //Estados utilizados con useState
   const [showModal, setShowModal] = useState(false);
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
@@ -14,7 +15,9 @@ const PasajeroView = () => {
   const [montoRealMontecarlo, setMontoRealMontecarlo] = useState(null);
   const [montoRealNapoleon, setMontoRealNapoleon] = useState(null);
   const [showEmpresas, setShowEmpresas] = useState(false);
+  const [idEmpresaSeleccionada, setIdEmpresaSeleccionada] = useState(null);
 
+//Funciones para manejar el modal
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -22,7 +25,7 @@ const PasajeroView = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
+//Función para obtener la ubicación del usuario.
   const handleFindMyLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -40,6 +43,7 @@ const PasajeroView = () => {
     }
   };
 
+  //Función para manejar el click en el mapa
   const handleMapClick = (event) => {
     if (!origin) {
       setOrigin({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -49,6 +53,8 @@ const PasajeroView = () => {
       setTitle('Ubicación confirmada');
        }
   };
+
+  //Función para calcular direcciones y distancia
   const calculateDirections = () => {
     if (origin && destination) {
       const directionsService = new window.google.maps.DirectionsService();
@@ -84,7 +90,6 @@ const PasajeroView = () => {
             const distanceValue = response.rows[0].elements[0].distance.value;
             const distanceInKm = distanceValue / 1000;
             setDistance(distanceInKm.toFixed(2));
-            // setShowModal(false); // Cierra el modal después de confirmar la ubicación
             calculateMontos(distanceInKm); // Calcula los montos según la distancia
           } else {
             console.error('Error al calcular la distancia:', status);
@@ -93,21 +98,23 @@ const PasajeroView = () => {
       );
     }
   };
-
+//Función para calcular montos y actualiza los valores del state.
   const calculateMontos = (distanceInKm) => {
     setMontoRealLibertad(distanceInKm ? distanceInKm * 340 + 400 : null);
     setMontoRealMontecarlo(distanceInKm ? distanceInKm * 400 + 400 : null);
     setMontoRealNapoleon(distanceInKm ? distanceInKm * 500 + 400 : null);
   };
+
+  //Efecto para calcular direcciones al cambiar origen o destino
   useEffect(() => {
     calculateDirections();
   }, [origin, destination]);
 
+  //Función para confirmar la ubicacion
   const handleConfirmLocation = () => {
     const coordenadas = {
       origen: origin ? { lat: origin.lat, lng: origin.lng } : null,
       destino: destination ? { lat: destination.lat, lng: destination.lng } : null,
-      
     };
     
     console.log('Coordenadas:', coordenadas);
@@ -117,14 +124,48 @@ const PasajeroView = () => {
       }
   };
 
+  // Función para enviar los datos al servidor
+  const enviarDatosAlServidor = (idEmpresa) => {
+    const coordenadas = {
+      id_enterprise: idEmpresa, // Agregar el ID de la empresa seleccionada
+      origen_lat: origin ? origin.lat : null,
+      origen_lng: origin ? origin.lng : null,
+      destino_lat: destination ? destination.lat : null,
+      destino_lng: destination ? destination.lng : null,
+    };
+
+    console.log('Coordenadas:', coordenadas);
+
+    if (origin && destination && idEmpresa) {
+      // Realizar la solicitud al servidor aquí
+      fetch('http://localhost:3000/travel/newTravel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(coordenadas),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Realizar acciones adicionales si la solicitud fue exitosa
+          }
+        })
+        .catch((error) => {
+          console.error('Error al enviar datos al servidor:', error);
+        });
+    }
+  };
+
+//Estilos y valores por defecto para el mapa
   const mapContainerStyle = {
     width: '100%',
     height: '400px',
   };
 
+  //Ubicación por defecto sobre Fsa
   const defaultLocation = {
-    lat: -26.1844, // Latitud de Formosa
-    lng: -58.1736, // Longitud de Formosa
+    lat: -26.1844,
+    lng: -58.1736, 
   };
 
   const defaultZoom = 13;
@@ -166,6 +207,7 @@ const PasajeroView = () => {
        montoRealLibertad={montoRealLibertad}
        montoRealMontecarlo={montoRealMontecarlo}
        montoRealNapoleon={montoRealNapoleon}
+       enviarDatosAlServidor={enviarDatosAlServidor}
        />}
     </div>
   );

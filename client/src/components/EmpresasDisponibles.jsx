@@ -4,7 +4,12 @@ import './empresa.css';
 export const EmpresasDisp = ({
     montoRealLibertad,
     montoRealMontecarlo,
-    montoRealNapoleon}) => {
+    montoRealNapoleon,
+    enviarDatosAlServidor // Recibe la función para enviar datos al servidor
+}) => {
+  const handleSolicitarViaje = (idEmpresa) => {
+    enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
+  };
     return (
         <main>
             <div>
@@ -20,7 +25,7 @@ export const EmpresasDisp = ({
                                         <div className="card-body">
                                             <h5 className="card-title">Remises Libertad</h5>
                                             <p className="card-text">Av Gutnisky 2133. C.P. P3600, Formosa, Formosa.</p>
-                                            <button className="btn btn-primary">Solicitar Viaje</button>
+                                            <button className="btn btn-primary" onClick={() => handleSolicitarViaje(1)}>Solicitar Viaje</button>
                                             <p className="monto-aproximado">Monto aproximado: ${montoRealLibertad || 'Calculando...'}</p>
                                         </div>
                                     </div>
@@ -31,7 +36,7 @@ export const EmpresasDisp = ({
                                         <div className="card-body">
                                             <h5 className="card-title">Remises Montecarlo</h5>
                                             <p className="card-text">Trinidad González 629, P3600 Formosa</p>
-                                            <button className="btn btn-primary">Solicitar Viaje</button>
+                                            <button className="btn btn-primary" onClick={() => handleSolicitarViaje(2)}>Solicitar Viaje</button>
                                             <p className="monto-aproximado">Monto aproximado: ${montoRealMontecarlo || 'Calculando...'}</p>
                                         </div>
                                     </div>
@@ -42,7 +47,7 @@ export const EmpresasDisp = ({
                                         <div className="card-body">
                                             <h5 className="card-title">Remises Napoleón</h5>
                                             <p className="card-text">Av. Napoleón Uriburu 1645, P3600 DQY, Formosa.</p>
-                                            <button className="btn btn-primary">Solicitar Viaje</button>
+                                            <button className="btn btn-primary" onClick={() => handleSolicitarViaje(3)}>Solicitar Viaje</button>
                                             <p className="monto-aproximado">Monto aproximado: ${montoRealNapoleon || 'Calculando...'}</p>
                                         </div>
                                     </div>
