@@ -8,9 +8,6 @@ export const EmpresasDisp = ({
     return (
         <main>
             <div>
-                <div className='d-flex justify-content-center'>
-                    <img className="img-fluid" src="/img/image.png" alt="Imagen de taxi" height="300" width="300" />
-                </div>
                 <div className="letras">
                     <div className="album py-5 bg-body-tertiary">
                         <div className="container">

@@ -47,7 +47,7 @@ const PasajeroView = () => {
     } else if (!destination) {
       setDestination({ lat: event.latLng.lat(), lng: event.latLng.lng() });
       setTitle('Ubicación confirmada');
-    }
+       }
   };
   const calculateDirections = () => {
     if (origin && destination) {
@@ -71,30 +71,34 @@ const PasajeroView = () => {
   };
 
   const calculateDistance = () => {
-    const distanceMatrixService = new window.google.maps.DistanceMatrixService();
-    distanceMatrixService.getDistanceMatrix(
-      {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: 'DRIVING',
-      },
-      (response, status) => {
-        if (status === 'OK') {
-          const distanceValue = response.rows[0].elements[0].distance.value;
-          const distanceInKm = distanceValue / 1000; // Conversión a kilómetros
-          setDistance(distanceInKm.toFixed(2));
-          setMontoRealLibertad(distance ? distance * 340 + 400 : null);
-          setMontoRealMontecarlo(distance ? distance * 400 + 400 : null);
-          setMontoRealNapoleon(distance? distance * 500 + 400 : null);
-          setShowModal(false); // Cierra el modal después de confirmar la ubicación
-          setShowEmpresas(true); // Muestra las empresas disponibles
-        } else {
-          console.error('Error al calcular la distancia:', status);
+    if (origin && destination) {
+      const distanceMatrixService = new window.google.maps.DistanceMatrixService();
+      distanceMatrixService.getDistanceMatrix(
+        {
+          origins: [origin],
+          destinations: [destination],
+          travelMode: 'DRIVING',
+        },
+        (response, status) => {
+          if (status === 'OK') {
+            const distanceValue = response.rows[0].elements[0].distance.value;
+            const distanceInKm = distanceValue / 1000;
+            setDistance(distanceInKm.toFixed(2));
+            // setShowModal(false); // Cierra el modal después de confirmar la ubicación
+            calculateMontos(distanceInKm); // Calcula los montos según la distancia
+          } else {
+            console.error('Error al calcular la distancia:', status);
+          }
         }
-      }
-    );
+      );
+    }
   };
 
+  const calculateMontos = (distanceInKm) => {
+    setMontoRealLibertad(distanceInKm ? distanceInKm * 340 + 400 : null);
+    setMontoRealMontecarlo(distanceInKm ? distanceInKm * 400 + 400 : null);
+    setMontoRealNapoleon(distanceInKm ? distanceInKm * 500 + 400 : null);
+  };
   useEffect(() => {
     calculateDirections();
   }, [origin, destination]);
