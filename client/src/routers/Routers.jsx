@@ -10,6 +10,7 @@ import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
 import {PasajeroPage} from '../pages/pasajero'; 
 import {ChoferPage} from '../pages/chofer';
+import ChoferAndUser from "../pages/choferAndUser";
 
 
 export const Routers = () => {
@@ -85,6 +86,16 @@ export const Routers = () => {
                         <PrivateRoutes>
                             <Routes>
                             <Route index element={<ChoferPage />} />
+                            </Routes>
+                        </PrivateRoutes>
+                    }
+                />
+                <Route
+                    path="/choferuser/*"
+                    element={
+                        <PrivateRoutes>
+                            <Routes>
+                            <Route index element={<ChoferAndUser />} />
                             </Routes>
                         </PrivateRoutes>
                     }

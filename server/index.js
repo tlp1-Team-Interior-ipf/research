@@ -56,6 +56,24 @@ app.use('/travel', travelRouter)
  // Error handling
  app.use(handleErrors);
 
+ 
+
+io.on("connection", (socket) => {
+  console.log("Client connected: ", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("Client disconnected: ", socket.id);
+  });
+
+  socket.on("message", (body) => {
+    console.log(body);
+
+    socket.broadcast.emit("message", { body, from: socket.id });
+  });
+});
+
+ 
+
 // Starting the server
 httpServer.listen(environments.PORT, async () => {
     console.log(`server on port http://localhost:${environments.PORT}`)

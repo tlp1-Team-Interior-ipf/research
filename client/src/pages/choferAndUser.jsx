@@ -1,7 +1,8 @@
 import io from "socket.io-client"; // Modulo de socket.io enfocado en aplicaciones de navegador
 import { useState, useEffect } from "react"; // Para crear estados
-import { Mapa } from "../components/mapa";
+import Maping from "../components/maping.jsx";
 import { Footer } from "../components/footer.jsx";
+import { Nav } from "../components/Nav.jsx";
 
 // Conexión con el backend
 const socket = io("/"); // Este socket permite recibir información del backend
@@ -46,7 +47,8 @@ function ChoferAndUser() {
 
   return (
     <>
-      <Mapa />
+    <Nav/>
+      <Maping/>
 
       <div className="container col-md-5 col-lg-4 order-md-last">
         <div
@@ -70,7 +72,7 @@ function ChoferAndUser() {
                     : " me-auto bg-success-subtle ms-0"
                 } border-bottom`}
                 style={{
-                  maxWidth: "70%",
+                  maxWidth: "75%",
                   width: "fit-content",
                   marginLeft: "auto",
                 }}
