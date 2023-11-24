@@ -1,5 +1,6 @@
 import React from 'react';
 import './empresa.css';
+import Swal from 'sweetalert2'
 
 export const EmpresasDisp = ({
     montoRealLibertad,
@@ -8,8 +9,14 @@ export const EmpresasDisp = ({
     enviarDatosAlServidor // Recibe la función para enviar datos al servidor
 }) => {
   const handleSolicitarViaje = (idEmpresa) => {
-    enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
+      enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
+      Swal.fire({
+          icon: 'success',
+          title: 'Viaje confirmado',
+          text: 'El viaje ha sido confirmado exitosamente',
+        });
   };
+
     return (
         <main>
   <div className="letras">
