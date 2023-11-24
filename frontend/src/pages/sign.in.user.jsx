@@ -1,75 +1,208 @@
-import taxi from '../assets/taxi.svg'
-import { NavBar } from '../components/navbar'
-import { Footer } from '../components/footer'
-
+import taxi from "../assets/taxi.svg";
+import { NavBar } from "../components/navbar";
+import { Footer } from "../components/footer";
+import Swal from "sweetalert2";
+import React, { useState } from "react";
 
 export const Signinuser = () => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
 
-    return (
-        <>
-            <NavBar />
+  const handleRegistro = async (e) => {
+    e.preventDefault();
 
-            <main>
-                <div>
-                    <picture className="d-flex justify-content-center">
-                        <img style={{ width: '100px' }} src={taxi} alt="Imagen de taxi" />
-                    </picture>
-                    <div>
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Las contraseñas no coinciden",
+      });
+      return;
+    }
 
-                        <form id="formulario" action="#">
-                            <h1 className="h3 mb-3 fw-normal text-warning m-1 text-center">Registrarse como usuario</h1>
-                            <div className="form-floating">
-                                <input type="email" className="form-control m-1" id="email" name="email" placeholder="name@example.com" />
-                                <label htmlFor="floatingInput">Correo Electrónico</label>
-                            </div>
+    const data = {
+      name,
+      surname,
+      email,
+      phone_number,
+      password,
+      date_birth: dateOfBirth,
+    };
 
-                            <div className="form-floating">
-                                <input type="password" className="form-control m-1" id="contraseña" name="contraseña" placeholder="Password" />
-                                <label htmlFor="floatingPassword">Contraseña</label>
-                            </div>
-                            <div className="form-floating">
-                                <input type="password" className="form-control m-1" id="confirmcontraseña" name="confirmcontraseña"
-                                    placeholder="Password" />
-                                <label htmlFor="floatingPassword">Confirmar Contraseña</label>
-                            </div>
+    try {
+      const response = await fetch("http://localhost:3000/passenger/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-                            <div className="form-floating">
-                                <input type="text" className="form-control m-1" id="nombre" name="nombre" placeholder="Nombre" />
-                                <label htmlFor="floatingInput">Nombre</label>
-                            </div>
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData && errorData.errors) {
+          const errorMessages = errorData.errors.map((error) => error.msg);
+          Swal.fire({
+            icon: "error",
+            title: "Error de validación",
+            text: errorMessages.join("\n"),
+          });
+        } else {
+          console.log(Error)
+          throw new Error("Error en el registro");
+        }
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Usuario creado",
+        });
+        setTimeout(() => {
+          window.location.href = "/inicioSesion";
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
+    }
+  };
 
-                            <div className="form-floating">
-                                <input type="text" className="form-control m-1" id="apellido" name="apellido" placeholder="Apellido" />
-                                <label htmlFor="floatingInput">Apellido</label>
-                            </div>
+  return (
+    <>
+      <NavBar />
 
-                            <div className="form-floating">
-                                <input type="text" className="form-control m-1" id="telefono" name="telefono" placeholder="Teléfono" />
-                                <label htmlFor="floatingInput">Teléfono</label>
-                            </div>
+      <main>
+      <div className="was-validated shadow p-3 mb-5 bg-body rounded border">
+        <div className='d-flex justify-content-center'>
+        <img
+          className="img-fluid"
+          src="/img/image.png"
+          alt="Imagen de taxi"
+          height="300"
+          width="300"
+        />
+        </div>
+          <form onSubmit={handleRegistro}>
+            <h1 className="mb-3 text-center text-black rounded p-2">Registrarse</h1>
+            <div className="row">
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationEmail" className="form-label">Correo Electrónico</label>
+              <input
+                type="email"
+                placeholder="Correo Electrónico"
+                className="form-control" 
+                id="validationEmail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="username"
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationPassword" className="form-label">Contraseña</label>
+              <input
+                type="password"
+                placeholder="Contraseña"
+                className="form-control"
+                id="validationPassword"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="new-password"
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationConfirmPassword" className="form-label">Confirmar Contraseña</label>
+              <input
+                type="password"
+                placeholder="Confirmar Contraseña"
+                className="form-control" 
+                id="validationConfirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                autoComplete="new-password"
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationNombre" className="form-label">Nombre</label>
+              <input
+                type="text"
+                placeholder="Nombre"
+                className="form-control" 
+                id="validationNombre"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationApellido" className="form-label">Apellido</label>
+              <input
+                type="text"
+                placeholder="Apellido"
+                className="form-control" 
+                id="validationApellido"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationTelefono" className="form-label">Teléfono</label>
+              <input
+                type="number"
+                placeholder="Teléfono"
+                className="form-control" 
+                id="validationTelefono"
+                value={phone_number}
+                onChange={(e) => setPhone_number(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-3">
+            <label htmlFor="validationDate" className="form-label">Fecha de Nacimiento</label>
+              <input
+                type="date"
+                placeholder="Fecha de Nacimiento"
+                className="form-control" 
+                id="validationDate"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                required
+              />
+            </div>
 
-                            <div className="form-floating">
-                                <input type="date" className="form-control m-1" id="fecha_nac" name="fecha_nac" placeholder="Fecha de Nacimiento" />
-                                <label htmlFor="floatingInput">Fecha de Nacimiento</label>
-                            </div>
+            <div className="form-check text-start my-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="remember-me"
+                id="flexCheckDefault"
+              />
+              <label>
+                Recordarme
+              </label>
+            </div>
+            <div className='d-flex justify-content-center'>
+            <button type="submit" className='boton'>
+              Registrarme
+            </button>
+            </div>
+            </div>
+          </form>
+        </div>
+    </main>
 
-                            <div className="form-check text-start my-3 m-1">
-                                <input className="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
-                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Recordarme
-                                </label>
-                            </div>
-
-                            <div className='d-flex justify-content-center'>
-                                <button type="submit" className="btn btn-warning text-light m-1">Registrarme</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </main>
-
-            <Footer />
-        </>
-    )
-}
+      <Footer />
+    </>
+  );
+};
