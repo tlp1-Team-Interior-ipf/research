@@ -1,7 +1,7 @@
 import io from "socket.io-client"; // Modulo de socket.io enfocado en aplicaciones de navegador
 import { useState, useEffect } from "react"; // Para crear estados
 import Maping from "../components/maping.jsx";
-import { Footer } from "../components/footer.jsx";
+import { Footer } from "../components/Footer.jsx";
 import { Nav } from "../components/Nav.jsx";
 
 // Conexión con el backend
@@ -48,13 +48,13 @@ function ChoferAndUser() {
   return (
     <>
     <Nav/>
-      <Maping/>
 
       <div className="container col-md-5 col-lg-4 order-md-last">
+        <Maping/>
         <div
           className="d-flex flex-column align-items-center"
           style={{ color: "yellow", border: "1px solid yellow" }}
-        >
+          >
           <ul
             style={{
               width: "100%",
@@ -115,6 +115,7 @@ function ChoferAndUser() {
               Send
             </button>
           </form>
+
         </div>
       </div>
 

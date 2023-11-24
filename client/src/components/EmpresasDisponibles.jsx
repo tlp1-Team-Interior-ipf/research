@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./empresa.css";
 
 export const EmpresasDisp = ({
@@ -7,19 +7,25 @@ export const EmpresasDisp = ({
   montoRealNapoleon,
   enviarDatosAlServidor, // Recibe la función para enviar datos al servidor
 }) => {
+
   const handleSolicitarViaje = (idEmpresa) => {
     enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
   };
+
+
+
   return (
     <main>
-      <div>
-        <div className="letras">
+      <form action="" onSubmit={handleSubmit}>
+      <div className="letras">
           <div className="album py-5 bg-body-tertiary">
             <div className="container">
               <h2>Empresas disponibles</h2>
               <br />
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                
                 <div className="col">
+                  
                   <div className="card shadow-sm">
                     <img
                       src="/img/remises libertad.jpg"
@@ -45,14 +51,14 @@ export const EmpresasDisp = ({
                         aria-labelledby="exampleModalLabel"
                         aria-hidden="true"
                       >
-                        <div className="modal-dialog modal-xl d-flex">
+                        <div className="modal-dialog modal-x d-flex">
                           <div className="modal-content overflow-y-auto">
                             <div className="modal-header">
                               <h1
                                 className="modal-title fs-5"
                                 id="exampleModalLabel"
                               >
-                                Choferes disponible
+                                Sala de espera...
                               </h1>
                               <button
                                 type="button"
@@ -69,70 +75,25 @@ export const EmpresasDisp = ({
                                 className="modal-title fs-5"
                                 id="exampleModalLabel"
                               >
-                                Chofer 1
+                                User 1
                               </h1>
-
-                              <button type="button" className="btn btn-primary">
-                                Solicitar remo
-                              </button>
-
-                            </div>
-                            <img src="/img/user.jpg" width={'100px'} alt="" />
-                            <div className="modal-body">Precio de viaje:</div>
-
-
-                            <div className="modal-footer justify-content-between">
                               
-                              <h1
-                                className="modal-title fs-5"
-                                id="exampleModalLabel"
-                              >
-                                Chofer 2
-                              </h1>
+                              <div>
+                              </div>
 
-                              <button type="button" className="btn btn-primary">
-                                Solicitar remo
+                              <button type="button" className="btn btn-danger">
+                                Cancelar pedido
                               </button>
-
-                            </div>
-                            <img src="/img/user.jpg" width={'100px'} alt="" />
-                            <div className="modal-body">Precio de viaje:</div>
-
-
-                            <div className="modal-footer justify-content-between">
                               
-                              <h1
-                                className="modal-title fs-5"
-                                id="exampleModalLabel"
-                              >
-                                Chofer 3
-                              </h1>
-
-                              <button type="button" className="btn btn-primary">
-                                Solicitar remo
-                              </button>
 
                             </div>
+                            <div>
                             <img src="/img/user.jpg" width={'100px'} alt="" />
-                            <div className="modal-body">Precio de viaje:</div>
-
-
-                            <div className="modal-footer justify-content-between">
-                              
-                              <h1
-                                className="modal-title fs-5"
-                                id="exampleModalLabel"
-                              >
-                                Chofer 3
-                              </h1>
-
-                              <button type="button" className="btn btn-primary">
-                                Solicitar remo
-                              </button>
+                                <h4>Pedido de viaje </h4>
+                            <i>El pedido de tu viaje ha pasado a manos de los choferes que estan disponibles, espera ha la confirmación de un chofer y luego confirma el pago que costara el viaje.</i>
 
                             </div>
-                            <img src="/img/user.jpg" width={'100px'} alt="" />
-                            <div className="modal-body">Precio de viaje:</div>
+                            <div className="modal-body"><i></i></div>
                             
                             
                           </div>
@@ -140,14 +101,15 @@ export const EmpresasDisp = ({
                         
                       </div>
 
-                      
                       <p className="monto-aproximado">
                         Monto aproximado: $
                         {montoRealLibertad || "Calculando..."}
                       </p>
                     </div>
                   </div>
+
                 </div>
+              
                 <div className="col">
                   <div className="card shadow-sm">
                     <img
@@ -172,6 +134,7 @@ export const EmpresasDisp = ({
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card shadow-sm">
                     <img
@@ -195,12 +158,14 @@ export const EmpresasDisp = ({
                       </p>
                     </div>
                   </div>
+
                 </div>
+
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </main>
   );
 };
