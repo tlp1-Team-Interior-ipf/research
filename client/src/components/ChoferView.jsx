@@ -3,22 +3,26 @@ import './modal.css';
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const ChoferView = () => {
+  //Estados utilizados con useState
   const [travels, setTravels] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTravel, setSelectedTravel] = useState(null);
   const [distance, setDistance] = useState(null);
   const [montoReal, setMontoReal] = useState(null);
 
+  //Función para mostrar el modal y seleccionar el viaje
   const handleShowModal = (travel) => {
     setSelectedTravel(travel);
     setShowModal(true);
   };
 
+  //Función para cerrar el modal
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTravel(null);
   };
 
+  //Efecto para obtener la lista de viajes del servidor al cargar el componente.
   useEffect(() => {
     const fetchTravels = async () => {
       try {
@@ -37,6 +41,7 @@ const ChoferView = () => {
     fetchTravels();
   }, []);
 
+  //Efecto para cargar el script de google maps
   useEffect(() => {
     const loadGoogleMapsScript = () => {
       const script = document.createElement('script');
@@ -48,6 +53,7 @@ const ChoferView = () => {
     loadGoogleMapsScript();
   }, []); 
 
+  //Efecto para manejar la lógica para mostrar el mapa en el modal
   useEffect(() => {
     if (showModal && selectedTravel) {
       const mapOptions = {
@@ -69,6 +75,7 @@ const ChoferView = () => {
         title: 'Destino del viaje',
       });
 
+      //Servicio de direcciones para obtener la ruta entre origen y destino
       const directionsService = new window.google.maps.DirectionsService();
       const directionsRenderer = new window.google.maps.DirectionsRenderer({ map });
 
@@ -80,6 +87,7 @@ const ChoferView = () => {
         },
         (result, status) => {
           if (status === 'OK') {
+            //Renderizar la ruta y calcular la distancia y monto real (Empresa Libertad en este caso)
             directionsRenderer.setDirections(result);
             const distance = result.routes[0].legs[0].distance.text;
             setDistance(distance);
