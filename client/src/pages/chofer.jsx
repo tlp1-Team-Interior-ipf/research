@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav } from '../components/Nav';
+import { Navbar } from '../components/Navbar';
 import ChoferView from '../components/ChoferView'
 import { Footer } from '../components/Footer';
 
@@ -7,7 +7,7 @@ export const ChoferPage = () => {
 
     return (
             <>
-                <Nav />
+                <Navbar />
                 <ChoferView />
                 <Footer />
             </>

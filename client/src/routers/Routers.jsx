@@ -4,13 +4,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageNotFound } from '../pages/PageNotFound'
 import { Inicio } from '../pages/inicio';
 import { InicioSesion } from '../pages/InicioSesion';
-import { Home } from '../pages/home';
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { PasajeroPage } from '../pages/pasajero';
+import { ChoferPage } from '../pages/chofer';
 
 
 const PublicRoutes = () => (
@@ -21,6 +21,7 @@ const PublicRoutes = () => (
       <Route path="/empresa" element={<Empresa />} />
       <Route path="/soporte" element={<Soporte />} />
       <Route path="*" element={<PageNotFound />} />
+      <Route path="/chofer" element={<ChoferPage />} />
     </Routes>
   );
   
