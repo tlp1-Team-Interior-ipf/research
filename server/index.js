@@ -1,25 +1,35 @@
+// Importaciones
 import express from 'express'
+import morgan from 'morgan'
+import cors from 'cors'
+import helmet from 'helmet'
+import dotenv from 'dotenv'
 
+import http from 'http'     
 
-import http from 'http'     //  Se importa un servidor http de node
-
-//  Se importa socket.io y se extrae la clase 'Server'(Servidor de web socket) renombrando a gusto el nombre que tiene
 import {Server as SocketServer} from 'socket.io'
+
+import { environment } from './config/environment.js'
+import {connectToDatabase} from './config/db.js'
+import './models/driver_enterprise.js'
+
+dotenv.config();
 
 const app = express()
 
-const server = http.createServer(app)   // Se crea un servidor básico pasandole 'app' 
+const server = http.createServer(app)   
 
 
-const io = new SocketServer(server)     // Se pasa a 'socket.io' el servidor creado anteriormente para crear un servidor de web socket
+const io = new SocketServer(server)     
 
+io.on('connection', (socket) => {          
+    console.log('Client connected: ', socket.id)               
 
-io.on('connection', socket => {           // El servidor escucha cuando un cliente se conecta al servidor
-    console.log(socket.id)               // Cuando un cliente se conecte muestra el id por consola
+    socket.on('disconnect', () => {
+        console.log('Client disconnected: ', socket.id)
+    });
 
-    
-                                         // Este 'message' es un evento que el backend esta escuchando de lo viene desde el frontend
-    socket.on('message', (body) => {    // El servidor escucha al cliente cuando este envía eventos
+    socket.on('message', (body) => {    
         console.log(body)
 
         socket.broadcast.emit('message', {body, from: socket.id})
@@ -36,6 +46,8 @@ io.on('connection', socket => {           // El servidor escucha cuando un clien
 
 
 
-server.listen(3000, () => {
-    console.log('Server on port', 3000)
+server.listen(environment.DB.PORT, () => {
+    console.log('Server on port', environment.DB.PORT)
+    connectToDatabase()
+
 })
