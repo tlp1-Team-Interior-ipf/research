@@ -21,10 +21,10 @@ export const EmpresasDisp = ({
                             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                                 <div className="col">
                                     <div className="card shadow-sm">
-                                        <img src="/img/remises libertad.webp" alt="Remises Libertad" id="libertad" />
+                                        <img src="/img/remises libertad.jpg" alt="Remises Libertad" className="card-img-top" /> 
                                         <div className="card-body">
                                             <h5 className="card-title">Remises Libertad</h5>
-                                            <p className="card-text">Av Gutnisky 2133. C.P. P3600, Formosa, Formosa.</p>
+                                            <p className="card-text">Av. Gutnisky 2133</p>
                                             <button className="btn btn-primary" onClick={() => handleSolicitarViaje(1)}>Solicitar Viaje</button>
                                             <p className="monto-aproximado">Monto aproximado: ${montoRealLibertad || 'Calculando...'}</p>
                                         </div>

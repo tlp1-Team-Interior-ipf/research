@@ -8,7 +8,8 @@ import { Home } from '../pages/home';
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
-import {PasajeroPage} from '../pages/pasajero'; // Importa el componente de la vista del pasajero
+import {PasajeroPage} from '../pages/pasajero'; 
+import {ChoferPage} from '../pages/chofer';
 
 
 export const Routers = () => {
@@ -74,6 +75,16 @@ export const Routers = () => {
                         <PrivateRoutes>
                             <Routes>
                             <Route index element={<PasajeroPage />} />
+                            </Routes>
+                        </PrivateRoutes>
+                    }
+                />
+                <Route
+                    path="/chofer"
+                    element={
+                        <PrivateRoutes>
+                            <Routes>
+                            <Route index element={<ChoferPage />} />
                             </Routes>
                         </PrivateRoutes>
                     }

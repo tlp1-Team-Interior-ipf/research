@@ -173,8 +173,10 @@ const PasajeroView = () => {
   const googleMapsApiKey= "AIzaSyAdfrKnsern-zn80h22lDBl00D2z51J_h8"
   return (
     <div>
-      <Button variant="primary" onClick={handleOpenModal}>Seleccionar Ubicación</Button>
-
+      {!origin && (
+        <Button variant="primary" onClick={handleOpenModal}>
+          Seleccionar Ubicación
+        </Button>)}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
