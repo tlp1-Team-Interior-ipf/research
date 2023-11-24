@@ -177,7 +177,7 @@ const PasajeroView = () => {
         <Button variant="primary" onClick={handleOpenModal}>
           Seleccionar Ubicación
         </Button>)}
-      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal show={showModal} onHide={handleCloseModal} className="map-modal">
         <Modal.Header closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
           <Button variant="info" onClick={handleFindMyLocation} style={{ position: 'absolute', top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>

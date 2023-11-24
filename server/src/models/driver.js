@@ -11,6 +11,10 @@ export const DriverModel = sequelize.define('Driver', {
             autoIncrement: true,
             primaryKey: true
         },
+        id_enterprise: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false

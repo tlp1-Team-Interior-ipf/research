@@ -18,7 +18,6 @@ import { enterpriseRouter } from "./src/routes/enterprise.routes.js";
 import { travelRouter } from "./src/routes/travel.routes.js";
 import { handleErrors } from "./src/middlewares/handleError.js";
 import { createLogs } from "./src/helpers/createLogs.js";
-import './src/models/driver_enterprise.js';
 
 import fileDirName  from "./src/utils/fileDirName.js";
 const { __dirname } = fileDirName(import.meta);

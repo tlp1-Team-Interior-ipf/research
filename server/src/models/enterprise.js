@@ -1,6 +1,6 @@
 import { sequelize } from "../config/db.js";
 import { DataTypes } from "sequelize";
-
+import { DriverModel} from "./driver.js";
 
 
 // Database modeling for the Enterprise entity
@@ -48,3 +48,7 @@ export const EnterpriseModel = sequelize.define('Enterprise', {
         timestamps: true
     }
 );
+
+// En el modelo de Enterprise
+EnterpriseModel.hasMany(DriverModel, { foreignKey: 'id_enterprise' });
+DriverModel.belongsTo(EnterpriseModel, { foreignKey: 'id_enterprise' });

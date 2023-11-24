@@ -1,5 +1,6 @@
 import { sequelize } from '../config/db.js';
 import { Sequelize } from 'sequelize';
+import { EnterpriseModel } from '../models/enterprise.js';
 
 export const TravelModel = sequelize.define('Travel', {
   id_enterprise:{
@@ -30,3 +31,6 @@ export const TravelModel = sequelize.define('Travel', {
     tableName: 'Travel'
 });
 
+// En el modelo de Travel
+TravelModel.belongsTo(EnterpriseModel, { foreignKey: 'id_enterprise', as: 'enterprise' });
+EnterpriseModel.hasOne(TravelModel, { foreignKey: 'id_enterprise', as: 'travel' });

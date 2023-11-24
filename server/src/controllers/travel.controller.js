@@ -59,10 +59,10 @@ export const getTravelDetails = async (req, res) => {
 
 travelController.showTravelList = async (req, res) => {
   try {
-    console.log('Executing showTravelList')
+    console.log('Executing showTravelList');
     const travels = await TravelModel.findAll();
 
-    res.render('travelList', { travels });
+    res.json({ travels });
   } catch (error) {
     console.error('Error al obtener la lista de viajes:', error);
     return res.status(500).json({ error: 'Hubo un error al obtener la lista de viajes' });
