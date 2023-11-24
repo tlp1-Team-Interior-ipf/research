@@ -1,5 +1,5 @@
-import { DriverModel } from "../models/driver";
-import { hashPassword } from "../helpers/hash";
+import { DriverModel } from "../models/driver.js";
+import { hashPassword } from "../helpers/hash.js";
 import bcrypt from 'bcrypt';
 
 // Retrieves all drivers from the database

@@ -1,5 +1,5 @@
-import { PassengerModel } from "../models/passenger";
-import { hashPassword } from "../helpers/hash";
+import { PassengerModel } from "../models/passenger.js";
+import { hashPassword } from "../helpers/hash.js";
 import bcrypt from 'bcrypt';
 
 export async function getAllPassengers() {

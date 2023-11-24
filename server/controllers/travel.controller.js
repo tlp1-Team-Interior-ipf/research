@@ -1,4 +1,4 @@
-import { TravelModel } from "../models/travel";
+import { TravelModel } from "../models/travel.js";
 
 const travelController = {};
 

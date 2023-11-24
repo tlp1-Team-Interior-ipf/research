@@ -1,5 +1,5 @@
 import { Router } from "express";
-import travelController from "../controllers/travel.controller";
+import travelController from "../controllers/travel.controller.js";
 
 
 const travelRouter = Router();

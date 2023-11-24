@@ -6,9 +6,9 @@ import {
     ctrlGetPassenger,
     ctrlUpdatePassenger,
     ctrlLoginPassenger
-} from "../controllers/passenger.controller";
-import { createPassengerSchema, loginPassengerSchema } from "../models/Schemas/user.schema";
-import { validator } from "../middlewares/validator";
+} from "../controllers/passenger.controller.js";
+import { createPassengerSchema, loginPassengerSchema } from "../models/Schemas/user.schema.js";
+import { validator } from "../middlewares/validator.js";
 
 const passengerRouter = Router();
 

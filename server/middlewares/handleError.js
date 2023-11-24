@@ -1,5 +1,5 @@
 import path from "path";
-import { createLogs } from "../helpers/createdLogs";
+import { createLogs } from "../helpers/createdLogs.js";
 
 import fileDirName from '../utils/fileDirName.js';
 const { __dirname } = fileDirName(import.meta);

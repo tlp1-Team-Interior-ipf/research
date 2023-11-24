@@ -1,5 +1,5 @@
-import { EnterpriseModel } from "../models/enterprise";
-import { hashPassword } from "../helpers/hash";
+import { EnterpriseModel } from "../models/enterprise.js";
+import { hashPassword } from "../helpers/hash.js";
 import bcrypt from 'bcrypt';
 
 // Retrieves all enterprise's from the database

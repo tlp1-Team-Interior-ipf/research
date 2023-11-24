@@ -1,5 +1,6 @@
-import { jwt } from "jsonwebtoken";
-import { environment } from "../config/environment";
+import pkg from 'jsonwebtoken';
+import { environment } from "../config/environment.js";
+const { jwt } = pkg;       
 
 export const createJWT = (payload) => {
     return new Promise((resolve, reject) => {

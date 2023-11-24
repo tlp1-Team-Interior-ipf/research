@@ -1,5 +1,5 @@
-import { sequelize } from '../config/db.js';
 import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 import { DriverModel } from './driver.js';
 import { EnterpriseModel } from './enterprise.js';
 
