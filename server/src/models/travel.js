@@ -22,6 +22,10 @@ export const TravelModel = sequelize.define('Travel', {
   destino_lng: {
     type: Sequelize.DECIMAL (12,10),
     allowNull: false
+  },
+  estado: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1 // Valor por defecto para el estado (activo)
   }
 },
   {

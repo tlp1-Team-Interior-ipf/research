@@ -22,6 +22,29 @@ const ChoferView = () => {
     setSelectedTravel(null);
   };
 
+  const handleReject = async (travelId) => {
+    try {
+      // Realizar una solicitud al servidor para rechazar el viaje (actualizar estado a 0)
+      const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ estado: 0 }), // Estado de rechazado
+      });
+  
+      if (response.ok) {
+        // Actualizar la lista de viajes después de rechazar
+        const updatedTravels = travels.filter((travel) => travel.id !== travelId);
+        setTravels(updatedTravels);
+        setShowModal(false);
+      } else {
+        console.error('Error al rechazar el viaje:', response.status);
+      }
+    } catch (error) {
+      console.error('Error al rechazar el viaje:', error);
+    }
+  };
   //Efecto para obtener la lista de viajes del servidor al cargar el componente.
   useEffect(() => {
     const fetchTravels = async () => {
@@ -125,6 +148,8 @@ const ChoferView = () => {
           <p>ID: {selectedTravel.id}</p>
           <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
           <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
+          <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
+          <button onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
         </div>
       </div>
       )}
