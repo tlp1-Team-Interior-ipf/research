@@ -1,4 +1,4 @@
-// Imports the dependencies
+// Imports de dependencias
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -6,7 +6,6 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import { Server as SocketServer } from 'socket.io';
 import { createServer } from 'http';
-
 
 dotenv.config();
 
@@ -22,12 +21,11 @@ import { createLogs } from "./src/helpers/createLogs.js";
 import fileDirName  from "./src/utils/fileDirName.js";
 const { __dirname } = fileDirName(import.meta);
 
-
 const app = express();
 const httpServer = createServer(app);
 const io = new SocketServer(httpServer);
 
-//Middleware necessary
+// Middleware necesario
 app.use(cors());
 app.use(helmet({
   contentSecurityPolicy: false
@@ -39,24 +37,40 @@ app.use(morgan('combined', {
     },
   },
 }));
-app.use(express.json())
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Rutas establecidas
+app.use('/passenger', passengerRouter);
+app.use('/driver', driverRouter);
+app.use('/enterprise', enterpriseRouter);
+app.use('/travel', travelRouter);
 
+// Gestionar la conexión de un usuario
+io.on('connection', (socket) => {
+  console.log('Usuario conectado');
+  socket.on('disconnect', () => {
+    console.log('Usuario desconectado');
+  });
 
-//Routes are established
+  socket.on('chat message', (data) => {
+    io.emit('chat message', data);
+  });
+  
+  socket.on('typing', (username) => {
+    io.emit('user typing', username);
+  });
 
-app.use('/passenger', passengerRouter)
-app.use('/driver', driverRouter)
-app.use('/enterprise', enterpriseRouter)
-app.use('/travel', travelRouter)
+  socket.on('stopped typing', (username) => {
+    io.emit('user stopped typing', username);
+  });
+});
 
- // Error handling
- app.use(handleErrors);
+// Manejar errores
+app.use(handleErrors);
 
-// Starting the server
+// Iniciar el servidor
 httpServer.listen(environments.PORT, async () => {
-    console.log(`server on port http://localhost:${environments.PORT}`)
-    connectToDatabase()
+  console.log(`Servidor en el puerto http://localhost:${environments.PORT}`);
+  connectToDatabase();
 });

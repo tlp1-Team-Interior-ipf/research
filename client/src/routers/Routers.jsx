@@ -11,6 +11,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { PasajeroPage } from '../pages/pasajero';
 import { ChoferPage } from '../pages/chofer';
+// import {ChatComponent} from '../components/ChatComponent';
+import { ChatPage } from "../pages/chat";
 
 
 const PublicRoutes = () => (
@@ -22,6 +24,7 @@ const PublicRoutes = () => (
       <Route path="/soporte" element={<Soporte />} />
       <Route path="*" element={<PageNotFound />} />
       <Route path="/chofer" element={<ChoferPage />} />
+      <Route path="/chat" element={<ChatPage />} />
     </Routes>
   );
   
