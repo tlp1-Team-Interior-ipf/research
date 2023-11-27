@@ -111,23 +111,22 @@ const ChoferView = () => {
           <li key={travel.id}>
             <p>
               Id Viaje: {travel.id}{' '}
-              <button onClick={() => handleShowModal(travel)}>Ver Detalles</button>
+              <button className="details-button" onClick={() => handleShowModal(travel)}>Ver Detalles</button>
             </p>
           </li>
         ))}
       </ul>
-
       {showModal && selectedTravel && (
         <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
-            <h2>Detalles del Viaje</h2>
-            <div id="map" style={{ height: '400px', width: '100%' }}></div>
-            <p>ID: {selectedTravel.id}</p>
-            <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
-            <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
-          </div>
+        <div className="modal-content">
+          <span className="close" onClick={handleCloseModal}>&times;</span>
+          <h2>Detalles del Viaje</h2>
+          <div id="map" style={{ height: '400px', width: '100%' }}></div>
+          <p>ID: {selectedTravel.id}</p>
+          <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
+          <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
         </div>
+      </div>
       )}
     </div>
   );

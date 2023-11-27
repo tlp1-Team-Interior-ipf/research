@@ -1,3 +1,13 @@
+body {
+  font-family: "Lubuntu", sans-serif;
+}
+/* Estilo para los botones "Ver Detalles" */
+.details-button {
+  color: black;
+  background-color: yellow;
+}
+
+
 .modal {
     display: block;
     position: fixed;
@@ -24,11 +34,18 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
   }
   
   .close:hover,
   .close:focus {
-    color: black;
+    color: rgb(231, 216, 4);
     text-decoration: none;
     cursor: pointer;
   }
