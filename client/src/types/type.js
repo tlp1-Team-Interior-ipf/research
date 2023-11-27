@@ -1,4 +1,4 @@
-export const type = {
-    LOGIN: "AUTH_LOGIN",
-    LOGOUT: "AUTH_LOGOUT",
+export const types = {
+    LOGIN: "LOGIN",
+    LOGOUT: "LOGOUT",
 }

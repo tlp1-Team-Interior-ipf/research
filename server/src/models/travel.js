@@ -1,6 +1,11 @@
 import { sequelize } from '../config/db.js';
+<<<<<<< HEAD
 import { EnterpriseModel } from '../models/enterprise.js';
 import { DataTypes } from 'sequelize';
+=======
+import { Sequelize } from 'sequelize';
+import { EnterpriseModel } from '../models/enterprise.js';
+>>>>>>> origin/mauri
 
 export const TravelModel = sequelize.define('Travel', {
     id_enterprise: {
@@ -30,6 +35,7 @@ export const TravelModel = sequelize.define('Travel', {
     tableName: 'Travel'
 });
 
+<<<<<<< HEAD
 // Establecer la relación entre Travel y Enterprise
 TravelModel.belongsTo(EnterpriseModel, {
     foreignKey: 'id_enterprise'
@@ -38,3 +44,8 @@ TravelModel.belongsTo(EnterpriseModel, {
 EnterpriseModel.hasMany(TravelModel, {
     foreignKey: 'id_enterprise'
 });
+=======
+// En el modelo de Travel
+TravelModel.belongsTo(EnterpriseModel, { foreignKey: 'id_enterprise', as: 'enterprise' });
+EnterpriseModel.hasOne(TravelModel, { foreignKey: 'id_enterprise', as: 'travel' });
+>>>>>>> origin/mauri
