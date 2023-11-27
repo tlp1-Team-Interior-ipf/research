@@ -40,7 +40,7 @@ export const EmpresasDisp = ({
               <h5 className="card-title">Remises Montecarlo</h5>
               <p className="card-text">Trinidad González 629, P3600 Formosa</p>
               <button className="btn btn-primary" onClick={() => handleSolicitarViaje(2)}>Solicitar Viaje</button>
-              <p className="monto-aproximado">Monto aproximado: ${montoRealMontecarlo || 'Calculando...'}</p>
+              <p className="monto-aproximado">Monto aproximado: ${montoRealMontecarlo.toFixed(2) || 'Calculando...'}</p>
             </div>
           </div>
           <div className="card shadow-sm">
@@ -49,7 +49,7 @@ export const EmpresasDisp = ({
               <h5 className="card-title">Remises Napoleón</h5>
               <p className="card-text">Av. Napoleón Uriburu 1645, P3600 DQY, Formosa.</p>
               <button className="btn btn-primary" onClick={() => handleSolicitarViaje(3)}>Solicitar Viaje</button>
-              <p className="monto-aproximado">Monto aproximado: ${montoRealNapoleon || 'Calculando...'}</p>
+              <p className="monto-aproximado">Monto aproximado: ${montoRealNapoleon.toFixed(2) || 'Calculando...'}</p>
             </div>
           </div>
         </div>

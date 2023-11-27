@@ -22,7 +22,8 @@ export const TravelModel = sequelize.define('Travel', {
   destino_lng: {
     type: Sequelize.DECIMAL (12,10),
     allowNull: false
-  }},
+  }
+},
   {
     // Other model options go here
     createdAt: true,

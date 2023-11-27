@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { PrivateRoutes } from './PrivateRoutes';
 // import { PublicRoutes } from './PublicRoutes';
-import { PageNotFound } from '../pages/PageNotFound'
+// import { PageNotFound } from '../pages/PageNotFound'
 import { Inicio } from '../pages/inicio';
 import { InicioSesion } from '../pages/InicioSesion';
 import { Signin } from '../pages/Signin';
@@ -20,8 +20,7 @@ const PublicRoutes = () => (
       <Route path="/signin" element={<Signin />} />
       <Route path="/empresa" element={<Empresa />} />
       <Route path="/soporte" element={<Soporte />} />
-      <Route path="*" element={<PageNotFound />} />
-      <Route path="/chofer" element={<ChoferPage />} />
+      {/* <Route path="*" element={<PageNotFound />} /> */}
     </Routes>
   );
   
@@ -30,7 +29,8 @@ const PublicRoutes = () => (
 const PrivateRoutes = () => (
     <Routes>
       <Route index path="/home" element={<PasajeroPage />} />
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="/chofer" element={<ChoferPage />} />
+      {/* <Route path="*" element={<PageNotFound />} /> */}
       
     </Routes>
   );
