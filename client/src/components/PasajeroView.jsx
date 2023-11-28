@@ -188,12 +188,12 @@ const PasajeroView = () => {
         <Button variant="primary" onClick={handleOpenModal}>
           Seleccionar Ubicación
         </Button>)}
-        <Modal show={showModal} onHide={handleCloseModal} className="map-modal">
+        <Modal show={showModal} onHide={handleCloseModal} className="map-modal" size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
           <Button variant="info" onClick={handleFindMyLocation} style={{ top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ width: '100%' }}>
           <LoadScript googleMapsApiKey={googleMapsApiKey}>
             <GoogleMap
               mapContainerStyle={mapContainerStyle}

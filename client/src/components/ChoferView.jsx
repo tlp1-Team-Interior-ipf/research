@@ -122,14 +122,14 @@ const ChoferView = () => {
           <span className="close" onClick={handleCloseModal}>&times;</span>
           <h2>Detalles del Viaje</h2>
           <div id="map" style={{ height: '400px', width: '100%' }}></div>
-          <p>ID: {selectedTravel.id}</p>
-          <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
-          <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
+          <p className="id">ID: {selectedTravel.id}</p>
+          <p className="distance">Distancia: {distance ? <span>{distance}</span> : 'Calculando...'}</p>
+          <p className="monto-real">Monto Real: {montoReal ? <span>${montoReal.toFixed(2)}</span> : 'Calculando...'}</p>
         </div>
       </div>
-      )}
-    </div>
-  );
+    )}
+  </div>
+);
 }
 
 export default ChoferView;

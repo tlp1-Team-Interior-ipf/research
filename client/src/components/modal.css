@@ -23,10 +23,10 @@ body {
   
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 0px;
+    padding: 0px;
     border: 1px solid #888;
-    width: 80%;
+    width: 100%;
   }
   
   .close {
@@ -37,7 +37,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 10px;
+    padding: 0px;
     cursor: pointer;
     color: red;
     font-size: 20px;
@@ -54,7 +54,58 @@ body {
   /* Estilos para el modal del mapa */
 .map-modal {
     position: absolute;
+    width: 100%;
     top: 0;
     left: 0;
     z-index: 9999; /* Ajusta este valor según sea necesario */
   }
+/* Estilos para ID, Distancia y Monto Real en el modal */
+.modal-content {
+  display: flex;
+  flex-direction: colum; 
+  align-items:flex-start;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /*no cambiar*/
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content p span {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Estilo específico para la distancia */
+.modal-content p.distance {
+  color: black; 
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilo específico para el monto real */
+.modal-content p.monto-real {
+  color: black; 
+  font-family: 'Roboto', sans-serif;
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilo específico para el ID */
+.modal-content p.id {
+  color: black; 
+  font-family: 'Roboto', sans-serif; 
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Alineación de los elementos en una fila */
+.modal-content p.id,
+.modal-content p.distance,
+.modal-content p.monto-real {
+  flex: 1;
+}
