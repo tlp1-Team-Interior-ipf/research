@@ -105,17 +105,43 @@ const ChoferView = () => {
 
   return (
     <div>
-      <h1>Lista de Viajes del Chofer</h1>
-      <ul>
-        {travels.map((travel) => (
-          <li key={travel.id}>
-            <p>
-              Id Viaje: {travel.id}{' '}
-              <button className="details-button" onClick={() => handleShowModal(travel)}>Ver Detalles</button>
-            </p>
-          </li>
-        ))}
-      </ul>
+     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', height: '100vh', marginTop: '20vh', marginBottom:'0vh' }}>
+  <div style={{ marginLeft: '40vh', marginRight:'0vh'}}>
+    <h1>Solicitudes de Viajes</h1>
+    {travels.map((travel) => (
+      <div key={travel.id} style={{}}>
+        <p>
+          Solicitud Nro: {travel.id}{' '}
+          <button
+            className="details-button"
+            style={{
+              padding: '10px',
+              backgroundColor: '#007BFF',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+            onClick={() => handleShowModal(travel)}
+          >
+            Ver Detalles
+          </button>
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <main style={{ marginLeft: '0px', marginRight: '20vh' }} className="d-flex align-items-start justify-content-center">
+    <div>
+      <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300" />
+      <div className="letras">
+        <h1 className="display-1">tuRemo</h1>
+      </div>
+    </div>
+  </main>
+</div>
+
+
       {showModal && selectedTravel && (
         <div className="modal">
         <div className="modal-content">

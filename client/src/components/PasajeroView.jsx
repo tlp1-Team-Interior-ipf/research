@@ -184,10 +184,22 @@ const PasajeroView = () => {
   const googleMapsApiKey= "AIzaSyAdfrKnsern-zn80h22lDBl00D2z51J_h8"
   return (
     <div >
+      <main className="d-flex align-items-center justify-content-center">
+        <div>
+          <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300"/>
+          <div className="letras">
+          <h1 className="display-1">tuRemo</h1>
+          <h3 className="display-6">¿A dónde querés ir?</h3>
+          {/* <a className="btn btn-warning d-grid gap-2 col-6 mx-auto" href="/home/usuario" type="button">Pedir Aquí</a> */}
+        </div>
+        </div>
+      </main>
       {!origin && (
-        <Button variant="primary" onClick={handleOpenModal}>
-          Seleccionar Ubicación
-        </Button>)}
+       <div className="text-center">
+       <Button variant="primary" onClick={handleOpenModal}>
+         Seleccionar Ubicación
+       </Button>
+     </div>)}
         <Modal show={showModal} onHide={handleCloseModal} className="map-modal" size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>

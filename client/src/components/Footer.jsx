@@ -1,6 +1,7 @@
 export const Footer = () => {
   const footerStyle = {
       padding: '10px',
+      marginTop: 'auto',
   };
 
   const textContainerStyle = {
