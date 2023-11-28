@@ -49,6 +49,5 @@ export const EnterpriseModel = sequelize.define('Enterprise', {
     }
 );
 
-// En el modelo de Enterprise
-EnterpriseModel.hasMany(DriverModel, { foreignKey: 'id_enterprise' });
-DriverModel.belongsTo(EnterpriseModel, { foreignKey: 'id_enterprise' });
+EnterpriseModel.hasMany(DriverModel, { foreignKey: 'id_enterprise', as: 'Drivers', sourceKey: 'id' });
+DriverModel.belongsTo(EnterpriseModel, { foreignKey: 'id_enterprise', as: 'Enterprise', targetKey: 'id' });

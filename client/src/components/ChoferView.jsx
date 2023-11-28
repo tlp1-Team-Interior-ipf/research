@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
+
 
 const ChoferView = () => {
   //Estados utilizados con useState
@@ -9,6 +12,8 @@ const ChoferView = () => {
   const [selectedTravel, setSelectedTravel] = useState(null);
   const [distance, setDistance] = useState(null);
   const [montoReal, setMontoReal] = useState(null);
+   // Mantener el socket en un estado para manipularlo
+   const [socket, setSocket] = useState(null);
 
   //Función para mostrar el modal y seleccionar el viaje
   const handleShowModal = (travel) => {
@@ -20,6 +25,35 @@ const ChoferView = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTravel(null);
+  };
+  
+  useEffect(() => {
+    // Establecer conexión al socket al montar el componente
+    const newSocket = io('http://localhost:3000');
+    setSocket(newSocket);
+
+    // Desconectar el socket al desmontar el componente
+    return () => {
+      if (newSocket) {
+        newSocket.disconnect();
+      }
+    };
+  }, []);
+  const handleAccept = async (travelId) => {
+    try {
+      // Lógica para aceptar el viaje...
+      // Supongamos que aquí se realiza la lógica para actualizar el estado del viaje a "aceptado" en la base de datos
+
+      // Emitir confirmación de viaje al pasajero usando el socket
+      if (socket) {
+        socket.emit('confirmTrip', travelId);
+      }
+
+      // Redirigir a la vista compartida
+      window.location.href = `/choferpasajero/${travelId}`;
+    } catch (error) {
+      console.error('Error al aceptar el viaje:', error);
+    }
   };
 
   const handleReject = async (travelId) => {
@@ -141,20 +175,24 @@ const ChoferView = () => {
       </ul>
       {showModal && selectedTravel && (
         <div className="modal">
-        <div className="modal-content">
-          <span className="close" onClick={handleCloseModal}>&times;</span>
-          <h2>Detalles del Viaje</h2>
-          <div id="map" style={{ height: '400px', width: '100%' }}></div>
-          <p>ID: {selectedTravel.id}</p>
-          <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
-          <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
-          <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
-          <button onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
+          <div className="modal-content">
+            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <h2>Detalles del Viaje</h2>
+            <div id="map" style={{ height: '400px', width: '100%' }}></div>
+            <p>ID: {selectedTravel.id}</p>
+            <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
+            <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
+            {/* Botón Aceptar */}
+            <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar
+            {/* Link para redirigir a la vista compartida */}</button>
+            {/* Botón Rechazar */}
+            <button onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
-}
+};
+
 
 export default ChoferView;

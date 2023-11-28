@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { PasajeroPage } from '../pages/pasajero';
 import { ChoferPage } from '../pages/chofer';
+import { ChoferPasajeroPage } from '../pages/choferpasajero';
 
 
 const PublicRoutes = () => (
@@ -20,6 +21,7 @@ const PublicRoutes = () => (
       <Route path="/signin" element={<Signin />} />
       <Route path="/empresa" element={<Empresa />} />
       <Route path="/soporte" element={<Soporte />} />
+      <Route path={`/choferpasajero/:travelId`} element={<ChoferPasajeroPage />} />
       {/* <Route path="*" element={<PageNotFound />} /> */}
     </Routes>
   );
@@ -30,6 +32,7 @@ const PrivateRoutes = () => (
     <Routes>
       <Route index path="/home" element={<PasajeroPage />} />
       <Route path="/chofer" element={<ChoferPage />} />
+      <Route path="/choferpasajero" element={<ChoferPasajeroPage />} />
       {/* <Route path="*" element={<PageNotFound />} /> */}
       
     </Routes>

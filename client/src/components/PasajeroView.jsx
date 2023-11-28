@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { EmpresasDisp } from './EmpresasDisponibles';
+import io from 'socket.io-client';
 // import './modal.css';
+
 const PasajeroView = () => {
   //Estados utilizados con useState
   const [showModal, setShowModal] = useState(false);
@@ -18,7 +20,37 @@ const PasajeroView = () => {
   const [montoRealNapoleon, setMontoRealNapoleon] = useState(null);
   const [showEmpresas, setShowEmpresas] = useState(false);
   const [idEmpresaSeleccionada, setIdEmpresaSeleccionada] = useState(null);
+ // Mantener el socket en un estado para manipularlo
+ const [socket, setSocket] = useState(null);
 
+useEffect(() => {
+    // Establecer conexión al socket al montar el componente
+    const newSocket = io('http://localhost:3000');
+    setSocket(newSocket);
+    console.log('socket');
+
+    // Desconectar el socket al desmontar el componente
+    return () => {
+      if (newSocket) {
+        newSocket.disconnect();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on('confirmTrip', (travelId) => {
+      console.log('Viaje confirmado por el chofer');
+      window.location.href = `/choferpasajero/${travelId}`;
+    });
+
+    socket.on('connect_error', (error) => {
+      console.error('Error de conexión con el servidor de socket:', error);
+    });
+
+    return () => {
+      socket.disconnect(); // Desconectar el socket cuando el componente se desmonta
+    };
+  }, []); // Efecto se ejecuta solo al montar el componente
 //Funciones para manejar el modal
   const handleOpenModal = () => {
     setShowModal(true);
