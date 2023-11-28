@@ -23,13 +23,10 @@ const PasajeroView = () => {
  // Mantener el socket en un estado para manipularlo
  const [socket, setSocket] = useState(null);
 
-useEffect(() => {
-    // Establecer conexión al socket al montar el componente
+  useEffect(() => {
     const newSocket = io('http://localhost:3000');
     setSocket(newSocket);
-    console.log('socket');
 
-    // Desconectar el socket al desmontar el componente
     return () => {
       if (newSocket) {
         newSocket.disconnect();
@@ -38,19 +35,25 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    socket.on('confirmTrip', (travelId) => {
-      console.log('Viaje confirmado por el chofer');
-      window.location.href = `/choferpasajero/${travelId}`;
-    });
+    if (socket) {
+      socket.on('connect', () => {
+        console.log('Conectado al servidor de socket');
+      });
 
-    socket.on('connect_error', (error) => {
-      console.error('Error de conexión con el servidor de socket:', error);
-    });
+      socket.on('confirmTrip', (travelId) => {
+        console.log('Viaje confirmado por el chofer');
+        window.location.href = `/choferpasajero/${travelId}`;
+      });
 
-    return () => {
-      socket.disconnect(); // Desconectar el socket cuando el componente se desmonta
-    };
-  }, []); // Efecto se ejecuta solo al montar el componente
+      socket.on('connect_error', (error) => {
+        console.error('Error de conexión con el servidor de socket:', error);
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [socket]);
 //Funciones para manejar el modal
   const handleOpenModal = () => {
     setShowModal(true);
