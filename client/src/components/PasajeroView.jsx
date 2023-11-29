@@ -20,40 +20,29 @@ const PasajeroView = () => {
   const [montoRealNapoleon, setMontoRealNapoleon] = useState(null);
   const [showEmpresas, setShowEmpresas] = useState(false);
   const [idEmpresaSeleccionada, setIdEmpresaSeleccionada] = useState(null);
- // Mantener el socket en un estado para manipularlo
- const [socket, setSocket] = useState(null);
+  const [idViaje, setIdViaje] = useState(null);
+  // Luego, cuando tengas el idViaje disponible (después de guardar en la BDD o donde sea necesario):
+// setIdViaje(idViajeObtenido);
+// Mantén la conexión del socket en un estado para manipularlo
+const socket = io('http://localhost:3000');
 
-  useEffect(() => {
-    const newSocket = io('http://localhost:3000');
-    setSocket(newSocket);
+useEffect(() => {
+  // Escuchar el evento 'viaje-creado' emitido por el servidor
+  socket.on('viaje-creado', ({ id }) => {
+    console.log(`Se ha creado un nuevo viaje con ID: ${id}`);
+  
+  })
+});
+//     // Actualizar el estado idViaje con el ID obtenido del evento
+//     setIdViaje(id);
+//     // Redirigir a la vista con el ID del viaje
+//     window.location.href = `/choferpasajero/${id}`;
+//   });
 
-    return () => {
-      if (newSocket) {
-        newSocket.disconnect();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('connect', () => {
-        console.log('Conectado al servidor de socket');
-      });
-
-      socket.on('confirmTrip', (travelId) => {
-        console.log('Viaje confirmado por el chofer');
-        window.location.href = `/choferpasajero/${travelId}`;
-      });
-
-      socket.on('connect_error', (error) => {
-        console.error('Error de conexión con el servidor de socket:', error);
-      });
-
-      return () => {
-        socket.disconnect();
-      };
-    }
-  }, [socket]);
+//   return () => {
+//     socket.off('viaje-creado'); // Desuscribirse del evento cuando el componente se desmonta
+//   };
+// }, []);
 //Funciones para manejar el modal
   const handleOpenModal = () => {
     setShowModal(true);
@@ -173,17 +162,16 @@ const PasajeroView = () => {
   // Función para enviar los datos al servidor
   const enviarDatosAlServidor = (idEmpresa) => {
     const coordenadas = {
-      id_enterprise: idEmpresa, // Agregar el ID de la empresa seleccionada
+      id_enterprise: idEmpresa,
       origen_lat: origin ? origin.lat : null,
       origen_lng: origin ? origin.lng : null,
       destino_lat: destination ? destination.lat : null,
       destino_lng: destination ? destination.lng : null,
     };
-
+   console.log('Antes de enviar solicitud al servidor:', idViaje);
     console.log('Coordenadas:', coordenadas);
-
+  
     if (origin && destination && idEmpresa) {
-      // Realizar la solicitud al servidor aquí
       fetch('http://localhost:3000/travel/newTravel', {
         method: 'POST',
         headers: {
@@ -191,14 +179,16 @@ const PasajeroView = () => {
         },
         body: JSON.stringify(coordenadas),
       })
-        .then((response) => {
-          if (response.ok) {
-            // Realizar acciones adicionales si la solicitud fue exitosa
-          }
-        })
-        .catch((error) => {
-          console.error('Error al enviar datos al servidor:', error);
-        });
+      .then((response) => {
+        if (response.ok) {
+          // Si la solicitud fue exitosa, obtenemos el ID del viaje del servidor
+          return response.json(); // Parsear la respuesta del servidor como JSON
+        }
+        throw new Error('Error al crear el viaje');
+      })
+      .catch((error) => {
+        console.error('Error al enviar datos al servidor:', error);
+      });
     }
   };
 
@@ -263,6 +253,7 @@ const PasajeroView = () => {
        montoRealMontecarlo={montoRealMontecarlo}
        montoRealNapoleon={montoRealNapoleon}
        enviarDatosAlServidor={enviarDatosAlServidor}
+       idViaje={idViaje} // Pasa idViaje al componente EmpresasDisp
        />}
     </div>
   );

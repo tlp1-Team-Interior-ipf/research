@@ -32,7 +32,7 @@ const PrivateRoutes = () => (
     <Routes>
       <Route index path="/home" element={<PasajeroPage />} />
       <Route path="/chofer" element={<ChoferPage />} />
-      <Route path="/choferpasajero" element={<ChoferPasajeroPage />} />
+      <Route path={`/choferpasajero/:travelId`} element={<ChoferPasajeroPage />} />
       {/* <Route path="*" element={<PageNotFound />} /> */}
       
     </Routes>

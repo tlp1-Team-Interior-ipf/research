@@ -3,19 +3,31 @@ import './empresa.css';
 import Swal from 'sweetalert2'
 
 export const EmpresasDisp = ({
-    montoRealLibertad,
-    montoRealMontecarlo,
-    montoRealNapoleon,
-    enviarDatosAlServidor // Recibe la función para enviar datos al servidor
+  montoRealLibertad,
+  montoRealMontecarlo,
+  montoRealNapoleon,
+  enviarDatosAlServidor,
+  idViaje, // Recibe idViaje como prop
+  // Recibe la función para enviar datos al servidor
 }) => {
   const handleSolicitarViaje = (idEmpresa) => {
-      enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
-      Swal.fire({
-          icon: 'success',
-          title: 'Viaje confirmado',
-          text: 'El viaje ha sido confirmado exitosamente',
-        });
-  };
+    enviarDatosAlServidor(idEmpresa, idViaje); // Llama a la función para enviar datos al servidor
+    console.log('idViaje en handleSolicitarViaje:', idViaje); // Agregar aquí
+    Swal.fire({
+      icon: 'success',
+      title: 'Viaje confirmado',
+      text: 'El viaje ha sido confirmado exitosamente',
+    });
+    // Temporizador para mostrar Sweet Alert después de 1.5 minutos (90000 milisegundos)
+  setTimeout(() => {
+    Swal.fire({
+      icon: 'success',
+      title: 'El chofer confirmó su viaje',
+      text: 'Espere en el sitio por favor.',
+    });
+  }, 20000); //20 segundos
+};
+
 
     return (
         <main>
@@ -29,7 +41,7 @@ export const EmpresasDisp = ({
             <img src="/img/remises libertad.jpg" alt="Remises Libertad" className="card-img-top" />
             <div className="card-body">
               <h5 className="card-title">Remises Libertad</h5>
-              <p className="card-text">Av. Gutnisky 2133</p>
+              <p className="card-text">Av. Gutnisky 2133, Formosa</p>
               <button className="btn btn-primary" onClick={() => handleSolicitarViaje(1)}>Solicitar Viaje</button>
               <p className="monto-aproximado">Monto aproximado: ${montoRealLibertad.toFixed(2) || 'Calculando...'}</p>
             </div>

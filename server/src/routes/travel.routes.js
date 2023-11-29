@@ -10,6 +10,8 @@ travelRouter.get('/list', travelController.showTravelList);
 
 travelRouter.get('/:id', travelController.getTravel)
 
+travelRouter.get('/details/:id', travelController.getTravelDetails);
+
 travelRouter.post('/update/:travelId', travelController.updateTravelStatus); 
 
 export {travelRouter};

@@ -3,6 +3,7 @@ import './modal.css';
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
+import Swal from 'sweetalert2'
 
 
 const ChoferView = () => {
@@ -13,7 +14,6 @@ const ChoferView = () => {
   const [distance, setDistance] = useState(null);
   const [montoReal, setMontoReal] = useState(null);
    // Mantener el socket en un estado para manipularlo
-   const [socket, setSocket] = useState(null);
 
   //Función para mostrar el modal y seleccionar el viaje
   const handleShowModal = (travel) => {
@@ -27,30 +27,24 @@ const ChoferView = () => {
     setSelectedTravel(null);
   };
   
-  useEffect(() => {
-    // Establecer conexión al socket al montar el componente
-    const newSocket = io('http://localhost:3000');
-    setSocket(newSocket);
+  // Supongamos que tienes la instancia de Socket.IO ya configurada en el frontend
+const socket = io('http://localhost:3000'); // O la URL correspondiente
 
-    // Desconectar el socket al desmontar el componente
-    return () => {
-      if (newSocket) {
-        newSocket.disconnect();
-      }
-    };
-  }, []);
   const handleAccept = async (travelId) => {
     try {
       // Lógica para aceptar el viaje...
-      // Supongamos que aquí se realiza la lógica para actualizar el estado del viaje a "aceptado" en la base de datos
+ // Sweet Alert para "Viaje confirmado"
+    Swal.fire({
+      icon: 'success',
+      title: 'Viaje confirmado',
+      text: 'El viaje ha sido confirmado exitosamente',
+    });
+      // Emitir el evento de aceptación del viaje al servidor a través del socket
+      socket.emit('viaje-aceptado', { travelId });
 
-      // Emitir confirmación de viaje al pasajero usando el socket
-      if (socket) {
-        socket.emit('confirmTrip', travelId);
-      }
-
-      // Redirigir a la vista compartida
-      window.location.href = `/choferpasajero/${travelId}`;
+      return (
+        <ChoferPasajero travelId={travelId} /> // Pasa el travelId al componente ChoferPasajero
+      );
     } catch (error) {
       console.error('Error al aceptar el viaje:', error);
     }
@@ -183,8 +177,7 @@ const ChoferView = () => {
             <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
             <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
             {/* Botón Aceptar */}
-            <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar
-            {/* Link para redirigir a la vista compartida */}</button>
+            <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
             {/* Botón Rechazar */}
             <button onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
           </div>
