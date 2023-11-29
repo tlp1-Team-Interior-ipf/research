@@ -7,7 +7,7 @@ export const Registro = () => {
                 <h5>Elige cómo quieres registrarte</h5>
                 <div className="d-flex justify-content-around">
                 <a href="/signin"><button className="btn btn-warning" type="button">Usuario</button></a>
-                <a href="/"><button className="btn btn-warning" type="button">Chofer</button></a>
+                {/* <a href="/"><button className="btn btn-warning" type="button">Chofer</button></a> */}
                 </div>
               </div>
         </div>

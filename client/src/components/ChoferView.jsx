@@ -104,12 +104,12 @@ const ChoferView = () => {
   }, [showModal, selectedTravel, setDistance, setMontoReal]);
 
   return (
-    <div>
-     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', height: '100vh', marginTop: '20vh', marginBottom:'0vh' }}>
-  <div style={{ marginLeft: '40vh', marginRight:'0vh'}}>
+    <div className="d-flex align-items-center justify-content-center">
+
+  <div className="solicitudes-section" style={{ marginLeft: '20px' }}>
     <h1>Solicitudes de Viajes</h1>
     {travels.map((travel) => (
-      <div key={travel.id} style={{}}>
+      <div key={travel.id}>
         <p>
           Solicitud Nro: {travel.id}{' '}
           <button
@@ -131,31 +131,33 @@ const ChoferView = () => {
     ))}
   </div>
 
-  <main style={{ marginLeft: '0px', marginRight: '20vh' }} className="d-flex align-items-start justify-content-center">
-    <div>
-      <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300" />
-      <div className="letras">
-        <h1 className="display-1">tuRemo</h1>
-      </div>
-    </div>
-  </main>
-</div>
-
-
-      {showModal && selectedTravel && (
-        <div className="modal">
-        <div className="modal-content">
-          <span className="close" onClick={handleCloseModal}>&times;</span>
-          <h2>Detalles del Viaje</h2>
-          <div id="map" style={{ height: '400px', width: '100%' }}></div>
-          <p className="id">ID: {selectedTravel.id}</p>
-          <p className="distance">Distancia: {distance ? <span>{distance}</span> : 'Calculando...'}</p>
-          <p className="monto-real">Monto Real: {montoReal ? <span>${montoReal.toFixed(2)}</span> : 'Calculando...'}</p>
+  <div className="welcome-section">
+    <main className="d-flex align-items-center justify-content-center">
+      <div className="d-flex flex-column align-items-center justify-content-center">
+        <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300" />
+        <div className="letras">
+          <h1 className="display-1">Bienvenido</h1>
+          {/* <a className="btn btn-warning d-grid gap-2 col-6 mx-auto" href="/home/usuario" type="button">Pedir Aquí</a> */}
         </div>
       </div>
-    )}
+    </main>
   </div>
-);
+
+  {showModal && selectedTravel && (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={handleCloseModal}>&times;</span>
+        <h2>Detalles del Viaje</h2>
+        <div id="map" style={{ height: '400px', width: '100%' }}></div>
+        <p className="id">ID: {selectedTravel.id}</p>
+        <p className="distance">Distancia: {distance ? <span>{distance}</span> : 'Calculando...'}</p>
+        <p className="monto-real">Monto Real: {montoReal ? <span>${montoReal.toFixed(2)}</span> : 'Calculando...'}</p>
+      </div>
+    </div>
+  )}
+</div>
+
+  );
 }
 
 export default ChoferView;
