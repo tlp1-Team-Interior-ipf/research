@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { EmpresasDisp } from './EmpresasDisponibles';
+// import './modal.css';
 const PasajeroView = () => {
   //Estados utilizados con useState
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,7 @@ const PasajeroView = () => {
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState(null);
   const [title, setTitle] = useState(null);
+  const [resetModal, setResetModal] = useState(false);
 
   const [montoRealLibertad, setMontoRealLibertad] = useState(null);
   const [montoRealMontecarlo, setMontoRealMontecarlo] = useState(null);
@@ -43,6 +45,14 @@ const PasajeroView = () => {
     }
   };
 
+  const handleResetModal = () => {
+    setOrigin(null);
+    setDestination(null);
+    setDirections(null);
+    setDistance(null);
+    setTitle(null);
+    setResetModal(false);
+  };
   //Función para manejar el click en el mapa
   const handleMapClick = (event) => {
     if (!origin) {
@@ -51,6 +61,7 @@ const PasajeroView = () => {
     } else if (!destination) {
       setDestination({ lat: event.latLng.lat(), lng: event.latLng.lng() });
       setTitle('Ubicación confirmada');
+      setResetModal(true)
        }
   };
 
@@ -172,15 +183,29 @@ const PasajeroView = () => {
  
   const googleMapsApiKey= "AIzaSyAdfrKnsern-zn80h22lDBl00D2z51J_h8"
   return (
-    <div>
-      <Button variant="primary" onClick={handleOpenModal}>Seleccionar Ubicación</Button>
-
-      <Modal show={showModal} onHide={handleCloseModal}>
+    <div >
+      <main className="d-flex align-items-center justify-content-center">
+        <div>
+          <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300"/>
+          <div className="letras">
+          <h1 className="display-1">tuRemo</h1>
+          <h3 className="display-6">¿A dónde querés ir?</h3>
+          {/* <a className="btn btn-warning d-grid gap-2 col-6 mx-auto" href="/home/usuario" type="button">Pedir Aquí</a> */}
+        </div>
+        </div>
+      </main>
+      {!origin && (
+       <div className="text-center">
+       <Button variant="primary" onClick={handleOpenModal}>
+         Seleccionar Ubicación
+       </Button>
+     </div>)}
+        <Modal show={showModal} onHide={handleCloseModal} className="map-modal" size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
-          <Button variant="info" onClick={handleFindMyLocation} style={{ position: 'absolute', top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
+          <Button variant="info" onClick={handleFindMyLocation} style={{ top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ width: '100%' }}>
           <LoadScript googleMapsApiKey={googleMapsApiKey}>
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
@@ -194,10 +219,17 @@ const PasajeroView = () => {
             </GoogleMap>
           </LoadScript>
           {/* Visualización de la distancia */}
-        <Modal.Footer>
+          <Modal.Footer>
           <p>Distancia entre puntos: {distance ? `${distance} km` : 'Calculando...'}</p>
-          {origin && destination && ( //Aquí iría el botón de pedir remis y la lógica para enviar la petición
-           <Button variant="success" onClick={handleConfirmLocation}>Confirmar ubicación</Button>
+          {origin && destination && (
+            <div> {/* Añade un div para agrupar los botones */}
+              <Button variant="success" onClick={handleConfirmLocation}>Confirmar ubicación</Button>
+              {resetModal && (
+                <Button variant="secondary" onClick={handleResetModal}>
+                  Reestablecer
+                </Button>
+              )}
+            </div>
           )}
         </Modal.Footer>
         </Modal.Body>
