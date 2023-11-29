@@ -27,28 +27,46 @@ const ChoferView = () => {
     setSelectedTravel(null);
   };
   
-  // Supongamos que tienes la instancia de Socket.IO ya configurada en el frontend
+  //  instancia de Socket.IO configurada en el frontend
 const socket = io('http://localhost:3000'); // O la URL correspondiente
 
   const handleAccept = async (travelId) => {
     try {
       // Lógica para aceptar el viaje...
- // Sweet Alert para "Viaje confirmado"
-    Swal.fire({
-      icon: 'success',
-      title: 'Viaje confirmado',
-      text: 'El viaje ha sido confirmado exitosamente',
-    });
-      // Emitir el evento de aceptación del viaje al servidor a través del socket
-      socket.emit('viaje-aceptado', { travelId });
-
-      return (
-        <ChoferPasajero travelId={travelId} /> // Pasa el travelId al componente ChoferPasajero
-      );
-    } catch (error) {
+      // Sweet Alert para "Viaje confirmado"
+      Swal.fire({
+        icon: 'success',
+        title: 'Viaje confirmado',
+        text: 'El viaje ha sido confirmado exitosamente',
+      }).then(() => {
+        // Cambiar el estado a 0 después de 1 segundo
+        setTimeout(async () => {
+          try {
+            const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ estado: 0 }), // Cambiar el estado a rechazado (0)
+            });
+        
+            if (response.ok) {
+              // Actualizar la lista de viajes después de cambiar el estado
+              const updatedTravels = travels.filter((travel) => travel.id !== travelId);
+              setTravels(updatedTravels);
+              setShowModal(false);
+            } else {
+              console.error('Error al cambiar el estado del viaje:', response.status);
+            }
+          } catch (error) {
+            console.error('Error al cambiar el estado del viaje:', error);
+          }
+        }, 1000); // Esperar 1 segundo antes de cambiar el estado
+      });
+      } catch (error) {
       console.error('Error al aceptar el viaje:', error);
-    }
-  };
+      }
+      };
 
   const handleReject = async (travelId) => {
     try {
@@ -80,7 +98,9 @@ const socket = io('http://localhost:3000'); // O la URL correspondiente
         const response = await fetch('http://localhost:3000/travel/list');
         if (response.ok) {
           const data = await response.json();
-          setTravels(data.travels);
+          // Filtrar los viajes cuyo estado sea 1
+          const filteredTravels = data.travels.filter((travel) => travel.estado === 1);
+          setTravels(filteredTravels);
         } else {
           console.error('Error al obtener los viajes:', response.status);
         }
@@ -88,7 +108,7 @@ const socket = io('http://localhost:3000'); // O la URL correspondiente
         console.error('Error al obtener los viajes:', error);
       }
     };
-
+  
     fetchTravels();
   }, []);
 
