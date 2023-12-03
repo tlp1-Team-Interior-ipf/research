@@ -186,9 +186,11 @@ const PasajeroView = () => {
     <div >
       <main className="d-flex align-items-center justify-content-center">
         <div>
+          <div className='d-flex justify-content-center'>
           <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300"/>
+          </div>
           <div className="letras">
-          <h1 className="display-1">tuRemo</h1>
+          <h1 className="display-1">Bienvenido a tuRemo</h1>
           <h3 className="display-6">¿A dónde querés ir?</h3>
           {/* <a className="btn btn-warning d-grid gap-2 col-6 mx-auto" href="/home/usuario" type="button">Pedir Aquí</a> */}
         </div>

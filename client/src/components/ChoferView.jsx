@@ -173,8 +173,9 @@ const handleReject = async (travelId) => {
 
   return (
     <div>
-     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', height: '100vh', marginTop: '20vh', marginBottom:'0vh' }}>
-  <div style={{ marginLeft: '40vh', marginRight:'0vh'}}>
+   <div className="d-flex align-items-center justify-content-center">
+
+<div className="solicitudes-section" style={{ marginLeft: '20px' }}>
     <h1>Solicitudes de Viajes</h1>
     <ul>
         {travels.map((travel) => (
@@ -201,15 +202,17 @@ const handleReject = async (travelId) => {
       </ul>
   </div>
 
-  <main style={{ marginLeft: '0px', marginRight: '20vh' }} className="d-flex align-items-start justify-content-center">
-    <div>
-      <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300" />
-      <div className="letras">
-        <h1 className="display-1">tuRemo</h1>
+  <div className="welcome-section">
+    <main className="d-flex align-items-center justify-content-center">
+      <div className="d-flex flex-column align-items-center justify-content-center">
+        <img className="img-fluid" src="../img/image.png" alt="Imagen de taxi" height="300" width="300" />
+        <div className="letras">
+          <h1 className="display-1">Bienvenido</h1>
+          {/* <a className="btn btn-warning d-grid gap-2 col-6 mx-auto" href="/home/usuario" type="button">Pedir Aquí</a> */}
+        </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
 
 {showModal && selectedTravel && (
@@ -218,9 +221,9 @@ const handleReject = async (travelId) => {
             <span className="close" onClick={handleCloseModal}>&times;</span>
             <h2>Detalles del Viaje</h2>
             <div id="map" style={{ height: '400px', width: '100%' }}></div>
-            <p>ID: {selectedTravel.id}</p>
-            <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
-            <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
+        <p className="id">ID: {selectedTravel.id}</p>
+        <p className="distance">Distancia: {distance ? <span>{distance}</span> : 'Calculando...'}</p>
+        <p className="monto-real">Monto Real: {montoReal ? <span>${montoReal.toFixed(2)}</span> : 'Calculando...'}</p>
             {/* Botón Aceptar */}
             <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
             {/* Botón Rechazar */}
@@ -228,6 +231,7 @@ const handleReject = async (travelId) => {
           </div>
         </div>
       )}
+  </div>
   </div>
 );
 }
