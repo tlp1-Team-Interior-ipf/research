@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { EmpresasDisp } from './EmpresasDisponibles';
+import io from 'socket.io-client';
 // import './modal.css';
 const PasajeroView = () => {
   //Estados utilizados con useState
