@@ -7,9 +7,23 @@ export const EmpresasDisp = ({
     montoRealNapoleon,
     enviarDatosAlServidor // Recibe la función para enviar datos al servidor
 }) => {
-  const handleSolicitarViaje = (idEmpresa) => {
-    enviarDatosAlServidor(idEmpresa); // Llama a la función para enviar datos al servidor
-  };
+    const handleSolicitarViaje = (idEmpresa) => {
+        enviarDatosAlServidor(idEmpresa, idViaje); // Llama a la función para enviar datos al servidor
+        console.log('idViaje en handleSolicitarViaje:', idViaje); // Agregar aquí
+        Swal.fire({
+          icon: 'success',
+          title: 'Viaje confirmado',
+          text: 'El viaje ha sido confirmado exitosamente',
+        });
+        // Temporizador para mostrar Sweet Alert después de 1.5 minutos (90000 milisegundos)
+      setTimeout(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'El chofer confirmó su viaje',
+          text: 'Espere en el sitio por favor.',
+        });
+      }, 20000); //20 segundos
+    };
     return (
         <main>
             <div>

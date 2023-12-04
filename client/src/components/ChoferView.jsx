@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './modal.css';
 import io from 'socket.io-client';
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import Swal from 'sweetalert2'
 
 const ChoferView = () => {
   //Estados utilizados con useState
@@ -10,6 +11,7 @@ const ChoferView = () => {
   const [selectedTravel, setSelectedTravel] = useState(null);
   const [distance, setDistance] = useState(null);
   const [montoReal, setMontoReal] = useState(null);
+   // Mantener el socket en un estado para manipularlo
 
   //Función para mostrar el modal y seleccionar el viaje
   const handleShowModal = (travel) => {
@@ -22,72 +24,71 @@ const ChoferView = () => {
     setShowModal(false);
     setSelectedTravel(null);
   };
-
-    //  instancia de Socket.IO configurada en el frontend
+  
+  //  instancia de Socket.IO configurada en el frontend
 const socket = io('http://localhost:3000'); // O la URL correspondiente
 
-const handleAccept = async (travelId) => {
-  try {
-    // Lógica para aceptar el viaje...
-    // Sweet Alert para "Viaje confirmado"
-    Swal.fire({
-      icon: 'success',
-      title: 'Viaje confirmado',
-      text: 'El viaje ha sido confirmado exitosamente',
-    }).then(() => {
-      // Cambiar el estado a 0 después de 1 segundo
-      setTimeout(async () => {
-        try {
-          const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ estado: 0 }), // Cambiar el estado a rechazado (0)
-          });
-      
-          if (response.ok) {
-            // Actualizar la lista de viajes después de cambiar el estado
-            const updatedTravels = travels.filter((travel) => travel.id !== travelId);
-            setTravels(updatedTravels);
-            setShowModal(false);
-          } else {
-            console.error('Error al cambiar el estado del viaje:', response.status);
+  const handleAccept = async (travelId) => {
+    try {
+      // Lógica para aceptar el viaje...
+      // Sweet Alert para "Viaje confirmado"
+      Swal.fire({
+        icon: 'success',
+        title: 'Viaje confirmado',
+        text: 'El viaje ha sido confirmado exitosamente',
+      }).then(() => {
+        // Cambiar el estado a 0 después de 1 segundo
+        setTimeout(async () => {
+          try {
+            const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ estado: 0 }), // Cambiar el estado a rechazado (0)
+            });
+        
+            if (response.ok) {
+              // Actualizar la lista de viajes después de cambiar el estado
+              const updatedTravels = travels.filter((travel) => travel.id !== travelId);
+              setTravels(updatedTravels);
+              setShowModal(false);
+            } else {
+              console.error('Error al cambiar el estado del viaje:', response.status);
+            }
+          } catch (error) {
+            console.error('Error al cambiar el estado del viaje:', error);
           }
-        } catch (error) {
-          console.error('Error al cambiar el estado del viaje:', error);
-        }
-      }, 1000); // Esperar 1 segundo antes de cambiar el estado
-    });
+        }, 1000); // Esperar 1 segundo antes de cambiar el estado
+      });
+      } catch (error) {
+      console.error('Error al aceptar el viaje:', error);
+      }
+      };
+
+  const handleReject = async (travelId) => {
+    try {
+      // Realizar una solicitud al servidor para rechazar el viaje (actualizar estado a 0)
+      const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ estado: 0 }), // Estado de rechazado
+      });
+  
+      if (response.ok) {
+        // Actualizar la lista de viajes después de rechazar
+        const updatedTravels = travels.filter((travel) => travel.id !== travelId);
+        setTravels(updatedTravels);
+        setShowModal(false);
+      } else {
+        console.error('Error al rechazar el viaje:', response.status);
+      }
     } catch (error) {
-    console.error('Error al aceptar el viaje:', error);
+      console.error('Error al rechazar el viaje:', error);
     }
-    };
-
-const handleReject = async (travelId) => {
-  try {
-    // Realizar una solicitud al servidor para rechazar el viaje (actualizar estado a 0)
-    const response = await fetch(`http://localhost:3000/travel/update/${travelId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ estado: 0 }), // Estado de rechazado
-    });
-
-    if (response.ok) {
-      // Actualizar la lista de viajes después de rechazar
-      const updatedTravels = travels.filter((travel) => travel.id !== travelId);
-      setTravels(updatedTravels);
-      setShowModal(false);
-    } else {
-      console.error('Error al rechazar el viaje:', response.status);
-    }
-  } catch (error) {
-    console.error('Error al rechazar el viaje:', error);
-  }
-};
-
+  };
   //Efecto para obtener la lista de viajes del servidor al cargar el componente.
   useEffect(() => {
     const fetchTravels = async () => {
@@ -215,15 +216,15 @@ const handleReject = async (travelId) => {
   </div>
 
 
-{showModal && selectedTravel && (
+  {showModal && selectedTravel && (
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={handleCloseModal}>&times;</span>
             <h2>Detalles del Viaje</h2>
             <div id="map" style={{ height: '400px', width: '100%' }}></div>
-        <p className="id">ID: {selectedTravel.id}</p>
-        <p className="distance">Distancia: {distance ? <span>{distance}</span> : 'Calculando...'}</p>
-        <p className="monto-real">Monto Real: {montoReal ? <span>${montoReal.toFixed(2)}</span> : 'Calculando...'}</p>
+            <p>ID: {selectedTravel.id}</p>
+            <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
+            <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
             {/* Botón Aceptar */}
             <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
             {/* Botón Rechazar */}

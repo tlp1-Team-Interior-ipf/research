@@ -26,7 +26,31 @@ const { __dirname } = fileDirName(import.meta);
 
 const app = express();
 const httpServer = createServer(app);
-const io = new SocketServer(httpServer);
+export const io = new SocketServer(httpServer, {
+  cors: {
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  },
+});
+
+// Manejo de conexiones de Socket.IO
+io.on('connection', (socket) => {
+  console.log('New socket connection:', socket.id);
+  // Lógica para manejar conexiones de pasajeros
+  socket.on('pasajero-conectado', (data) => {
+    // Manejar la conexión del pasajero
+    // Emitir eventos o realizar acciones según sea necesario
+  });
+
+  // Lógica para manejar conexiones de choferes
+  socket.on('chofer-conectado', (data) => {
+    // Manejar la conexión del chofer
+    // Emitir eventos o realizar acciones según sea necesario
+  });
+
+});
 
 //Middleware necessary
 app.use(cors());
