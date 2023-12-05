@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PageNotFound } from '../pages/PageNotFound';
 import { Inicio } from '../pages/inicio';
 import { InicioSesion } from '../pages/InicioSesion';
@@ -31,7 +31,7 @@ const PrivateRoutes = () => (
       <Route index path="/home" element={<PasajeroPage />} />
       <Route path="/chofer" element={<ChoferPage />} />
       <Route path={`/choferpasajero/:travelId`} element={<ChoferPasajeroPage />} />
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<Navigate to="/home" />} />
       
     </Routes>
   );
