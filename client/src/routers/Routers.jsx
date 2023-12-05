@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PageNotFound } from '../pages/PageNotFound';
 import { Inicio } from '../pages/inicio';
 import { InicioSesion } from '../pages/InicioSesion';
+import { InicioSesionChofer } from "../pages/InicioSesionChofer";
 import { Signin } from '../pages/Signin';
 import { Empresa } from '../pages/empresa';
 import { Soporte } from '../pages/soporte';
@@ -15,6 +16,7 @@ import { ChoferPasajeroPage } from '../pages/choferpasajero';
 const PublicRoutes = () => (
     <Routes>
       <Route index element={<Inicio />} />
+      <Route path="/inicioSesionChofer" element={<InicioSesionChofer />} />
       <Route path="/inicioSesion/*" element={<InicioSesion />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/empresa" element={<Empresa />} />
