@@ -81,6 +81,10 @@ body {
     font-weight: bold;
     margin-right: 5px;
   }
+
+  .find-location-button {
+  margin-left: auto; /* Ajusta el margen izquierdo para alinear a la derecha */
+}
   
   /* Estilo específico para la distancia */
   .modal-content p.distance {

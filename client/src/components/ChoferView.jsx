@@ -225,10 +225,12 @@ const socket = io('http://localhost:3000'); // O la URL correspondiente
             <p>ID: {selectedTravel.id}</p>
             <p>Distancia: {distance ? `${distance}` : 'Calculando...'}</p>
             <p>Monto Real: {montoReal ? `$${montoReal.toFixed(2)}` : 'Calculando...'}</p>
+            <div className='d-flex justify-content-center gap-2'>
             {/* Botón Aceptar */}
-            <button onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
+            <button className="btn btn-success" onClick={() => handleAccept(selectedTravel.id)}>Aceptar</button>
             {/* Botón Rechazar */}
-            <button onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
+            <button className="btn btn-danger" onClick={() => handleReject(selectedTravel.id)}>Rechazar</button>
+            </div>
           </div>
         </div>
       )}

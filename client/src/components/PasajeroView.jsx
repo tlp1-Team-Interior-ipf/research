@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { EmpresasDisp } from './EmpresasDisponibles';
@@ -20,6 +20,8 @@ const PasajeroView = () => {
   const [showEmpresas, setShowEmpresas] = useState(false);
   const [idEmpresaSeleccionada, setIdEmpresaSeleccionada] = useState(null);
   const [idViaje, setIdViaje] = useState(null);
+
+  const empresasRef = useRef(null); // Referencia al elemento EmpresasDisp
   // Luego, cuando tengas el idViaje disponible (después de guardar en la BDD o donde sea necesario):
 // setIdViaje(idViajeObtenido);
 // Mantén la conexión del socket en un estado para manipularlo
@@ -191,6 +193,12 @@ useEffect(() => {
     }
   };
 
+  useEffect(() => {
+    if (showEmpresas) {
+      empresasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showEmpresas]);
+
 //Estilos y valores por defecto para el mapa
   const mapContainerStyle = {
     width: '100%',
@@ -227,9 +235,9 @@ useEffect(() => {
        </Button>
      </div>)}
         <Modal show={showModal} onHide={handleCloseModal} className="map-modal" size="lg">
-        <Modal.Header closeButton>
+        <Modal.Header  closeButton>
           <Modal.Title>{origin ? 'Destino' : 'Origen'}</Modal.Title>
-          <Button variant="info" onClick={handleFindMyLocation} style={{ top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
+          <Button className="find-location-button" variant="info" onClick={handleFindMyLocation} style={{ top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
         </Modal.Header>
         <Modal.Body style={{ width: '100%' }}>
           <LoadScript googleMapsApiKey={googleMapsApiKey}>
@@ -261,12 +269,16 @@ useEffect(() => {
         </Modal.Body>
       </Modal>
       {/* Renderiza la lista de empresas disponibles si se confirma la ubicación */}
-      {showEmpresas && <EmpresasDisp  
-       montoRealLibertad={montoRealLibertad}
-       montoRealMontecarlo={montoRealMontecarlo}
-       montoRealNapoleon={montoRealNapoleon}
-       enviarDatosAlServidor={enviarDatosAlServidor}
-       />}
+      {showEmpresas && (
+        <div ref={empresasRef}>
+          <EmpresasDisp  
+            montoRealLibertad={montoRealLibertad}
+            montoRealMontecarlo={montoRealMontecarlo}
+            montoRealNapoleon={montoRealNapoleon}
+            enviarDatosAlServidor={enviarDatosAlServidor}
+          />
+        </div>
+      )}
     </div>
   );
 };
