@@ -182,7 +182,7 @@ const socket = io('http://localhost:3000'); // O la URL correspondiente
         {travels.map((travel) => (
           <li key={travel.id}>
             <p>
-              Id Viaje: {travel.id}{' '}
+              Viaje N°: {travel.id}{' '}
           <button
             className="details-button"
             style={{
