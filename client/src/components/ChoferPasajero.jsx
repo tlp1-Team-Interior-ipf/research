@@ -72,7 +72,7 @@ const ChoferPasajero = ({travelId}) => {
       <div className="row">
         <div className="col-md-5 col-lg-4 order-md-last">
           {/* Aquí va el mapa de Google */}
-          <LoadScript googleMapsApiKey="AIzaSyAdfrKnsern-zn80h22lDBl00D2z51J_h8">
+          <LoadScript googleMapsApiKey="AIzaSyCWn8hbc9kmh7RTHY_maP-HDVE2pWSuqY8" loading="async">
             <GoogleMap
               mapContainerStyle={{ width: '100%', height: '400px' }}
               center={{ lat: 0, lng: 0 }}

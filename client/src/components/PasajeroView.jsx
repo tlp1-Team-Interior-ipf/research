@@ -213,7 +213,7 @@ useEffect(() => {
 
   const defaultZoom = 13;
  
-  const googleMapsApiKey= "AIzaSyAdfrKnsern-zn80h22lDBl00D2z51J_h8"
+  const googleMapsApiKey= "AIzaSyCWn8hbc9kmh7RTHY_maP-HDVE2pWSuqY8"
   return (
     <div >
       <main className="d-flex align-items-center justify-content-center">
@@ -240,7 +240,7 @@ useEffect(() => {
           <Button className="find-location-button" variant="info" onClick={handleFindMyLocation} style={{ top: '10px', right: '10px' }}>Encontrar mi ubicación</Button>
         </Modal.Header>
         <Modal.Body style={{ width: '100%' }}>
-          <LoadScript googleMapsApiKey={googleMapsApiKey}>
+          <LoadScript googleMapsApiKey={googleMapsApiKey} loading="async">
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={defaultLocation}
